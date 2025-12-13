@@ -17,7 +17,7 @@ const About = () => {
 
           <div className="bg-muted/50 border border-border rounded-lg p-4 mb-8 inline-block">
             <span className="text-sm font-medium text-muted-foreground">Status:</span>
-            <span className="ml-2 text-foreground font-semibold">Experiment</span>
+            <span className="ml-2 text-foreground font-semibold">Experiment - we are using fixture data - not real data at this point</span>
           </div>
 
           <h2 className="font-serif text-2xl font-semibold text-foreground mt-8 mb-4">Roadmap</h2>
