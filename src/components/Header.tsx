@@ -1,4 +1,4 @@
-import { Rss, HelpCircle } from 'lucide-react';
+import { Rss, HelpCircle, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -20,6 +20,12 @@ export function Header() {
           </div>
         </Link>
         <nav className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" asChild>
+            <Link to="/about">
+              <Info className="mr-1 h-4 w-4" />
+              About
+            </Link>
+          </Button>
           <Button variant="ghost" size="sm" asChild>
             <Link to="/help">
               <HelpCircle className="mr-1 h-4 w-4" />
