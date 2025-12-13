@@ -1,7 +1,6 @@
 export function Footer() {
   return (
-    <>
-      <footer className="border-t bg-card py-8">
+    <footer className="border-t bg-primary/10 py-8">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-muted-foreground">
             KeepTrack.nz — Tracking official actions of the New Zealand Government
@@ -28,10 +27,6 @@ export function Footer() {
             54th Parliament · National-led Coalition (2023–present)
           </p>
         </div>
-      </footer>
-      
-      {/* Blue accent bar */}
-      <div className="h-2 bg-bar-accent" />
-    </>
+    </footer>
   );
 }
