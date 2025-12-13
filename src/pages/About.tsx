@@ -12,7 +12,7 @@ const About = () => {
           <h1 className="font-serif text-3xl font-bold text-foreground mb-6">About KeepTrack.nz</h1>
           
           <p className="text-lg text-muted-foreground mb-8">
-            KeepTrack.nz was created to display the documented actions of the NZ government.
+            <a href="https://keeptrack.nz" className="text-primary hover:underline">KeepTrack.nz</a> was created to display the documented actions of the NZ government.
           </p>
 
           <div className="bg-muted/50 border border-border rounded-lg p-4 mb-8 inline-block">
@@ -86,7 +86,7 @@ const About = () => {
 
           <div className="mt-10 pt-6 border-t border-border">
             <a 
-              href="https://github.com" 
+              href="https://github.com/richbodo/keep-track-nz" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-primary hover:underline font-medium"
