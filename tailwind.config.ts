@@ -13,12 +13,16 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        mono: ["Space Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "bar-accent": "hsl(var(--bar-accent))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -56,6 +60,12 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
+        source: {
+          parliament: "hsl(var(--source-parliament))",
+          legislation: "hsl(var(--source-legislation))",
+          gazette: "hsl(var(--source-gazette))",
+          beehive: "hsl(var(--source-beehive))",
         },
       },
       borderRadius: {

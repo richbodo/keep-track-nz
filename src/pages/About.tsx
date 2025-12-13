@@ -9,7 +9,7 @@ const About = () => {
       
       <main className="flex-1 container mx-auto px-4 py-8 max-w-3xl">
         <article className="prose prose-slate dark:prose-invert max-w-none">
-          <h1 className="font-serif text-3xl font-bold text-foreground mb-6">About KeepTrack.nz</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-6">About KeepTrack.nz</h1>
           
           <p className="text-lg text-muted-foreground mb-8">
             <a href="https://keeptrack.nz" className="text-primary hover:underline">KeepTrack.nz</a> was created to display the documented actions of the NZ government.
@@ -20,9 +20,9 @@ const About = () => {
             <span className="ml-2 text-foreground font-semibold">Experiment - we are using fixture data - not real data at this point</span>
           </div>
 
-          <h2 className="font-serif text-2xl font-semibold text-foreground mt-8 mb-4">Roadmap</h2>
+          <h2 className="text-2xl font-semibold text-foreground mt-8 mb-4">Roadmap</h2>
 
-          <h3 className="font-serif text-xl font-medium text-foreground mt-6 mb-3">Minimum Useful</h3>
+          <h3 className="text-xl font-medium text-foreground mt-6 mb-3">Minimum Useful</h3>
           
           <ul className="space-y-3 list-none pl-0">
             <li className="flex items-start gap-3">
@@ -55,7 +55,7 @@ const About = () => {
             </li>
           </ul>
 
-          <h3 className="font-serif text-xl font-medium text-foreground mt-8 mb-3">Future Directions/Ideas</h3>
+          <h3 className="text-xl font-medium text-foreground mt-8 mb-3">Future Directions/Ideas</h3>
           
           <ul className="space-y-3 list-none pl-0">
             <li className="flex items-start gap-3">

@@ -39,7 +39,7 @@ export function ActionCard({ action }: ActionCardProps) {
                 {formatDate(action.date)}
               </span>
             </div>
-            <h3 className="font-serif text-lg font-semibold leading-tight">
+            <h3 className="text-lg font-semibold leading-tight">
               <a
                 href={action.url}
                 target="_blank"
