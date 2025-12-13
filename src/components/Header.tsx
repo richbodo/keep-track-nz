@@ -4,11 +4,7 @@ import { Link } from 'react-router-dom';
 
 export function Header() {
   return (
-    <>
-      {/* Blue accent bar */}
-      <div className="h-2 bg-bar-accent" />
-      
-      <header className="border-b bg-card">
+    <header className="border-b bg-primary/10">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <Link to="/" className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded bg-primary text-primary-foreground">
@@ -44,7 +40,6 @@ export function Header() {
             </Button>
           </nav>
         </div>
-      </header>
-    </>
+    </header>
   );
 }
