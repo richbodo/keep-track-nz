@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: "/keep-track-nz/",
+  base: "/",
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {

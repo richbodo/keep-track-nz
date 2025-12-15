@@ -2,13 +2,13 @@
 
 ## Project info
 
-Starting with a simple site that displays goverment news.  Initial version vibe coded with and hosted on lovable.
+Starting with a simple site that displays goverment news.  Static site. 
 
 **URL**: https://keeptrack.nz
 
 ## Deployment (GitHub Pages)
 
-The app is configured to deploy to GitHub Pages using a `gh-pages` branch. Client-side routing uses a `HashRouter` to avoid 404 errors on refresh and the Vite base path is set to `/keep-track-nz/` to ensure assets resolve correctly from the Pages URL.
+The app is configured to deploy to GitHub Pages using a `gh-pages` branch. Client-side routing uses a `HashRouter` to avoid 404 errors on refresh and the Vite base path is set to `/`.
 
 ### Steps
 
