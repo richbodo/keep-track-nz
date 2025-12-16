@@ -3,7 +3,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ActionCard } from '@/components/ActionCard';
 import { ActionFilters } from '@/components/ActionFilters';
-import { fixtureActions, type SourceSystem } from '@/data/fixtureData';
+import { actions, type SourceSystem } from '@/data/actions';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -12,12 +12,12 @@ const Index = () => {
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
 
   const filteredActions = useMemo(() => {
-    let actions = [...fixtureActions];
+    let filtered = [...actions];
 
     // Filter by search
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      actions = actions.filter(
+      filtered = filtered.filter(
         (action) =>
           action.title.toLowerCase().includes(query) ||
           action.summary.toLowerCase().includes(query) ||
@@ -27,24 +27,24 @@ const Index = () => {
 
     // Filter by source
     if (selectedSource !== 'ALL') {
-      actions = actions.filter((action) => action.source_system === selectedSource);
+      filtered = filtered.filter((action) => action.source_system === selectedSource);
     }
 
     // Filter by labels
     if (selectedLabels.length > 0) {
-      actions = actions.filter((action) =>
+      filtered = filtered.filter((action) =>
         selectedLabels.some((label) => action.labels.includes(label))
       );
     }
 
     // Sort
-    actions.sort((a, b) => {
+    filtered.sort((a, b) => {
       const dateA = new Date(a.date).getTime();
       const dateB = new Date(b.date).getTime();
       return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     });
 
-    return actions;
+    return filtered;
   }, [searchQuery, selectedSource, selectedLabels, sortOrder]);
 
   const handleLabelToggle = (label: string) => {
@@ -86,7 +86,7 @@ const Index = () => {
           </div>
 
           <div className="mb-4 text-sm text-muted-foreground">
-            Showing {filteredActions.length} of {fixtureActions.length} actions
+            Showing {filteredActions.length} of {actions.length} actions
           </div>
 
           <div className="space-y-4">

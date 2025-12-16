@@ -1,0 +1,181 @@
+{
+  "labels": [
+    "Housing",
+    "Health",
+    "Education",
+    "Infrastructure",
+    "Environment",
+    "Economy",
+    "Justice",
+    "Immigration",
+    "Defence",
+    "Transport",
+    "Social Welfare",
+    "Tax",
+    "Local Government",
+    "Treaty of Waitangi",
+    "Agriculture"
+  ],
+  "actions": [
+    {
+      "id": "gaz-2025-257170",
+      "title": "Fisheries (Notification of Tāngata Kaitiaki/Tiaki for ( Poihākena Marae, Ngā Kaitiaki o Whāingaroa Rohe Moana ) Notice 2025 (Notice No. MPI 1983)",
+      "date": "2025-12-16",
+      "source_system": "GAZETTE",
+      "url": "https://gazette.govt.nz/notice/id/2025-go7170",
+      "primary_entity": "Government",
+      "summary": "",
+      "labels": [
+        "Economy"
+      ],
+      "metadata": {
+        "bill_number": null,
+        "parliament_number": null,
+        "stage_history": null,
+        "act_number": null,
+        "commencement_date": null,
+        "notice_number": "2025-go7170",
+        "notice_type": "Departmental",
+        "document_type": null,
+        "portfolio": "Fisheries"
+      }
+    },
+    {
+      "id": "gaz-2025-257246",
+      "title": "Fisheries (High Seas Fishing Notifications-Commission for the Conservation of Antarctic Marine Living Resources) Notice 2025",
+      "date": "2025-12-16",
+      "source_system": "GAZETTE",
+      "url": "https://gazette.govt.nz/notice/id/2025-go7246",
+      "primary_entity": "Government",
+      "summary": "",
+      "labels": [
+        "Economy",
+        "Environment"
+      ],
+      "metadata": {
+        "bill_number": null,
+        "parliament_number": null,
+        "stage_history": null,
+        "act_number": null,
+        "commencement_date": null,
+        "notice_number": "2025-go7246",
+        "notice_type": "Departmental",
+        "document_type": null,
+        "portfolio": "Fisheries"
+      }
+    },
+    {
+      "id": "leg-1986-121",
+      "title": "Fair Trading Act 1986",
+      "date": "2025-12-09",
+      "source_system": "LEGISLATION",
+      "url": "https://www.legislation.govt.nz/act/public/1986/0121/106.0/contents.html",
+      "primary_entity": "Parliament",
+      "summary": "as at 27 November 2025",
+      "labels": [],
+      "metadata": {
+        "bill_number": null,
+        "parliament_number": null,
+        "stage_history": null,
+        "act_number": "1986 No 121",
+        "commencement_date": "2025-11-27",
+        "notice_number": null,
+        "notice_type": null,
+        "document_type": null,
+        "portfolio": null
+      }
+    },
+    {
+      "id": "leg-2025-056",
+      "title": "Education and Training (Vocational Education and Training System) Amendment Act 2025",
+      "date": "2025-12-02",
+      "source_system": "LEGISLATION",
+      "url": "https://www.legislation.govt.nz/act/public/2025/0056/36.0/contents.html",
+      "primary_entity": "Hon Erica Stanford",
+      "summary": "as enacted",
+      "labels": [
+        "Defence",
+        "Education"
+      ],
+      "metadata": {
+        "bill_number": null,
+        "parliament_number": null,
+        "stage_history": null,
+        "act_number": "2025 No 56",
+        "commencement_date": "2025-10-21",
+        "notice_number": null,
+        "notice_type": null,
+        "document_type": null,
+        "portfolio": null
+      }
+    },
+    {
+      "id": "leg-2025-002",
+      "title": "Auckland Council (Auckland Future Fund) Act 2025",
+      "date": "2025-11-27",
+      "source_system": "LEGISLATION",
+      "url": "https://www.legislation.govt.nz/act/local/2025/0002/20.0/contents.html",
+      "primary_entity": "Parliament",
+      "summary": "as enacted",
+      "labels": [
+        "Local Government"
+      ],
+      "metadata": {
+        "bill_number": null,
+        "parliament_number": null,
+        "stage_history": null,
+        "act_number": "2025 No 2",
+        "commencement_date": "2025-11-18",
+        "notice_number": null,
+        "notice_type": null,
+        "document_type": null,
+        "portfolio": null
+      }
+    },
+    {
+      "id": "leg-1994-166",
+      "title": "Tax Administration Act 1994",
+      "date": "2025-11-18",
+      "source_system": "LEGISLATION",
+      "url": "https://www.legislation.govt.nz/act/public/1994/0166/656.0/contents.html",
+      "primary_entity": "Hon Nicola Willis",
+      "summary": "as at 01 July 2025",
+      "labels": [
+        "Tax"
+      ],
+      "metadata": {
+        "bill_number": null,
+        "parliament_number": null,
+        "stage_history": null,
+        "act_number": "1994 No 166",
+        "commencement_date": "2025-07-01",
+        "notice_number": null,
+        "notice_type": null,
+        "document_type": null,
+        "portfolio": null
+      }
+    }
+  ],
+  "metadata": {
+    "last_updated": "2025-12-16T20:22:02.001027",
+    "total_count": 6,
+    "source_counts": {
+      "GAZETTE": 2,
+      "LEGISLATION": 4
+    },
+    "label_counts": {
+      "Education": 1,
+      "Environment": 1,
+      "Economy": 2,
+      "Defence": 1,
+      "Tax": 1,
+      "Local Government": 1
+    },
+    "date_range": {
+      "earliest": "2025-11-18",
+      "latest": "2025-12-16"
+    },
+    "generated_by": "keep-track-nz-backend",
+    "version": "1.0"
+  }
+}
