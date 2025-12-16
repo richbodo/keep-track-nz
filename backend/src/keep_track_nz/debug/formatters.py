@@ -11,17 +11,11 @@ class DebugContext:
     def __init__(self, enabled: bool = False):
         self.enabled = enabled
         self.item_counter = 0
-        self.duplicate_counter = 0
 
     def next_item_number(self) -> int:
         """Get next item number for debugging."""
         self.item_counter += 1
         return self.item_counter
-
-    def next_duplicate_number(self) -> int:
-        """Get next duplicate number for debugging."""
-        self.duplicate_counter += 1
-        return self.duplicate_counter
 
 
 class DebugFormatter:
@@ -80,46 +74,6 @@ class DebugFormatter:
      URL: {url[:80]}{'...' if len(url) > 80 else ''}"""
 
     @staticmethod
-    def format_duplicate_comparison(
-        dup_number: int,
-        item1: Dict[str, Any],
-        item2: Dict[str, Any],
-        duplicate_type: str,
-        reason: str,
-        similarity_score: Optional[float] = None
-    ) -> str:
-        """Format a duplicate comparison for debug output."""
-        header = f"\n🔍 DUPLICATE #{dup_number:02d} - {duplicate_type.upper()}"
-        if similarity_score is not None:
-            header += f" (similarity: {similarity_score:.1f}%)"
-
-        reason_text = f"\n   Reason: {reason}"
-
-        item1_text = f"\n   Original:\n{DebugFormatter._indent_text(DebugFormatter.format_item_summary(item1), 6)}"
-        item2_text = f"\n   Duplicate:\n{DebugFormatter._indent_text(DebugFormatter.format_item_summary(item2), 6)}"
-
-        return f"{header}{reason_text}{item1_text}{item2_text}"
-
-    @staticmethod
-    def format_dedup_summary(
-        input_count: int,
-        output_count: int,
-        exact_removed: int,
-        similar_removed: int,
-        cross_source_removed: int
-    ) -> str:
-        """Format deduplication summary."""
-        total_removed = input_count - output_count
-        return f"""
-📊 DEDUPLICATION SUMMARY:
-   Input items: {input_count}
-   Output items: {output_count}
-   Total removed: {total_removed}
-   - Exact duplicates: {exact_removed}
-   - Similar duplicates: {similar_removed}
-   - Cross-source duplicates: {cross_source_removed}"""
-
-    @staticmethod
     def format_scraper_summary(source_name: str, count: int) -> str:
         """Format scraper completion summary."""
         return f"\n✅ {source_name} scraping complete: {count} items collected"
@@ -160,11 +114,6 @@ class DebugFormatter:
             status = "✓" if success else "✗"
             summary += f"\n   {status} {source}: {scraped} items"
 
-        if debug_stats:
-            summary += f"\n\n🔍 DEBUG STATISTICS:"
-            summary += f"\n   Total duplicates found: {debug_stats.get('total_duplicates', 0)}"
-            summary += f"\n   Exact duplicates: {debug_stats.get('exact_duplicates', 0)}"
-            summary += f"\n   Similar duplicates: {debug_stats.get('similar_duplicates', 0)}"
-            summary += f"\n   Cross-source duplicates: {debug_stats.get('cross_source_duplicates', 0)}"
+        # No longer displaying deduplication statistics
 
         return summary

@@ -7,16 +7,47 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 import json
+import importlib.util
+import warnings
 
-# Import configuration
-try:
-    import config
-except ImportError:
-    # Fallback to default config if config.py doesn't exist
-    class Config:
-        GIT_AUTHOR_NAME = "Keep Track NZ Bot"
-        GIT_AUTHOR_EMAIL = "bot@keeptrack.nz"
-    config = Config()
+# Import configuration from backend/config.py
+def _load_config():
+    """Load config from backend/config.py using path-based import."""
+    # Navigate from main.py (backend/src/keep_track_nz/) up to backend/config.py
+    backend_dir = Path(__file__).parent.parent.parent
+    config_path = backend_dir / "config.py"
+    
+    if config_path.exists():
+        spec = importlib.util.spec_from_file_location("config", config_path)
+        config_module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(config_module)
+        return config_module
+    else:
+        warnings.warn(
+            f"Config file not found at {config_path}. Using default configuration. "
+            f"Copy config.example.py to config.py and customize as needed.",
+            UserWarning
+        )
+        # Return a class with default values matching config.example.py
+        class DefaultConfig:
+            REPO_PATH = str(backend_dir.parent)
+            OUTPUT_DIR = "src/data"
+            GIT_AUTHOR_NAME = "Keep Track NZ Bot"
+            GIT_AUTHOR_EMAIL = "bot@keeptrack.nz"
+            GIT_BRANCH = "main"
+            SCRAPER_LIMITS = {
+                "PARLIAMENT": 50,
+                "LEGISLATION": 50,
+                "GAZETTE": 50,
+                "BEEHIVE": 50
+            }
+            DIGITALNZ_API_KEY = ""
+            LOG_LEVEL = "INFO"
+            LOG_FILE = "keep_track_nz.log"
+            CRON_SCHEDULE = "0 2 * * *"
+        return DefaultConfig()
+
+config = _load_config()
 
 from .models import GovernmentAction, ActionCollection, SourceSystem
 from .scrapers import (
@@ -27,7 +58,6 @@ from .scrapers import (
 )
 from .processors import (
     DataValidator,
-    Deduplicator,
     LabelClassifier
 )
 from .exporters import TypeScriptExporter
@@ -84,7 +114,6 @@ class DataCollectionOrchestrator:
 
         self.processors = [
             DataValidator(debug_context=self.debug_context, strict_mode=False),
-            Deduplicator(debug_context=self.debug_context),
             LabelClassifier(debug_context=self.debug_context)
         ]
 
@@ -151,17 +180,11 @@ class DataCollectionOrchestrator:
 
             # Final debug summary
             if self.debug_context and self.debug_context.enabled:
-                debug_stats = {
-                    'total_duplicates': getattr(self.processors[1], 'debug_stats', {}).get('total_duplicates', 0),
-                    'exact_duplicates': getattr(self.processors[1], 'debug_stats', {}).get('exact_duplicates', 0),
-                    'similar_duplicates': getattr(self.processors[1], 'debug_stats', {}).get('similar_duplicates', 0),
-                    'cross_source_duplicates': getattr(self.processors[1], 'debug_stats', {}).get('cross_source_duplicates', 0)
-                }
                 print(DebugFormatter.format_pipeline_debug_summary(
                     self.run_stats['total_scraped'],
                     self.run_stats['total_processed'],
                     self.run_stats['source_stats'],
-                    debug_stats
+                    {}  # No deduplication stats
                 ))
 
             logger.info("Pipeline completed successfully")
@@ -245,8 +268,8 @@ class DataCollectionOrchestrator:
         return actions
 
     def _process_data(self, actions: List[GovernmentAction]) -> List[GovernmentAction]:
-        """Process data through validation, deduplication, and labeling."""
-        logger.info("Processing data through validation, deduplication, and labeling")
+        """Process data through validation and labeling."""
+        logger.info("Processing data through validation and labeling")
 
         # Convert actions to dictionaries for processing
         data = [action.to_dict() for action in actions]
