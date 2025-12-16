@@ -33,4 +33,5 @@ backend/.venv/
 backend/*.pyc
 backend/htmlcov/
 backend/coverage.xml
+backend/.coverage
 backend/.pytest_cache/

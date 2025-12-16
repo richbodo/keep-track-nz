@@ -59,7 +59,7 @@ class ParliamentScraper(BaseScraper):
                     enriched_bills.append(bill_data)
 
             logger.info(f"Successfully scraped {len(enriched_bills)} bills from Parliament")
-            return enriched_bills
+            return self._debug_log_scraped_items(enriched_bills)
 
         except Exception as e:
             logger.error(f"Parliament scraper failed: {e}")
@@ -410,7 +410,7 @@ class ParliamentScraper(BaseScraper):
             clean_bill_number = re.sub(r'[^0-9]', '', str(bill_number))[:6]
             if not clean_bill_number:
                 clean_bill_number = '000'
-            action_id = f"parl-2024-{clean_bill_number.zfill(3)}"
+            action_id = f"parl-{datetime.now().year}-{clean_bill_number.zfill(3)}"
 
             # Extract date (use introduction date or current date)
             date_str = raw_data.get('introduction_date') or datetime.now().strftime('%Y-%m-%d')

@@ -54,7 +54,7 @@ class LegislationScraper(BaseScraper):
             acts_data = self._parse_atom_feed(response.text, limit)
 
             logger.info(f"Successfully scraped {len(acts_data)} acts from Legislation RSS feed")
-            return acts_data
+            return self._debug_log_scraped_items(acts_data)
 
         except Exception as e:
             logger.error(f"Legislation scraper failed: {e}")
