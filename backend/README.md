@@ -79,7 +79,7 @@ python scripts/setup_cron.py
 keep_track_nz/
 ├── models/          # Data models and schema validation
 ├── scrapers/        # Source-specific data scrapers
-├── processors/      # Data validation, deduplication, labeling
+├── processors/      # Data validation, labeling
 ├── exporters/       # TypeScript and JSON export
 ├── git_integration.py  # Automated Git operations
 └── main.py         # Main orchestrator
@@ -92,7 +92,7 @@ keep_track_nz/
        ↓                   ↓            ↓            ↓             ↓
    4 Official APIs    Raw Data     Validated    TypeScript    Repository
                                    Labeled      & JSON        Updated
-                                   Deduped      Files
+                                               Files
 ```
 
 ## Configuration
@@ -164,14 +164,6 @@ Optional environment variables:
 2. **Data Cleaning**: Normalizes dates, URLs, and text formatting
 3. **Field Generation**: Creates missing IDs and infers primary entities
 
-### Deduplication Strategy
-
-1. **Exact Duplicates**: Same ID or URL
-2. **Similar Content**: Fuzzy matching on titles and dates
-3. **Cross-Source Duplicates**: Bills vs. corresponding Acts
-
-**Priority Order**: Legislation > Parliament > Gazette > Beehive
-
 ### Label Classification
 
 Automatic assignment of policy area labels based on:
@@ -220,7 +212,6 @@ uv run python -m keep_track_nz.scrapers.gazette --test
 uv run python -m keep_track_nz.scrapers.beehive --test
 
 # Test processors
-uv run python -m keep_track_nz.processors.deduplicator --test
 uv run python -m keep_track_nz.processors.labeler --test
 uv run python -m keep_track_nz.processors.validator --test
 
@@ -248,7 +239,6 @@ uv run python -m keep_track_nz.git_integration --test
 **Processing errors:**
 - Check data validation errors in logs
 - Verify schema compatibility
-- Review deduplication logic for edge cases
 
 **Export failures:**
 - Check file system permissions
