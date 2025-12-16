@@ -1,6 +1,6 @@
 # Keep Track NZ Backend
 
-A Python-based data collection system that automatically scrapes, processes, and exports New Zealand government action data for the Keep Track NZ website.
+A Python-based data collection system that automatically scrapes, processes, and exports New Zealand government action data.
 
 ## Overview
 
@@ -14,7 +14,6 @@ This backend system runs as a scheduled cron job to:
 
 2. **Process** the data through:
    - Validation and normalization
-   - Deduplication across sources
    - Automatic label classification
 
 3. **Export** the processed data as:

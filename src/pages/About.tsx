@@ -30,12 +30,8 @@ const About = () => {
               <span className="text-foreground">Static Site with working UI bits.</span>
             </li>
             <li className="flex items-start gap-3">
-              <Circle className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+              <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-500 mt-0.5 flex-shrink-0" />
               <span className="text-muted-foreground">Scraper script to scrape all documented action data nightly into action files by source</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <Circle className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-              <span className="text-muted-foreground">Action De-Duper - checks to make sure that there are no duplicate actions in the action files</span>
             </li>
             <li className="flex items-start gap-3">
               <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-500 mt-0.5 flex-shrink-0" />
@@ -55,7 +51,7 @@ const About = () => {
             </li>
           </ul>
 
-          <h3 className="text-xl font-medium text-foreground mt-8 mb-3">Future Directions/Ideas</h3>
+          <h3 className="text-xl font-medium text-foreground mt-8 mb-3">Future Directions/Fun Ideas</h3>
           
           <ul className="space-y-3 list-none pl-0">
             <li className="flex items-start gap-3">
