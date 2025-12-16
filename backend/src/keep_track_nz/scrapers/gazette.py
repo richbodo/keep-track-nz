@@ -58,12 +58,12 @@ class GazetteScraper(BaseScraper):
                 notices = self._scrape_via_digitalnz_api(limit)
                 if notices:
                     logger.info(f"Successfully scraped {len(notices)} notices from DigitalNZ API")
-                    return notices
+                    return self._debug_log_scraped_items(notices)
 
             # Fallback to direct gazette scraping
             notices = self._scrape_direct_gazette(limit)
             logger.info(f"Successfully scraped {len(notices)} notices from direct Gazette scraping")
-            return notices
+            return self._debug_log_scraped_items(notices)
 
         except Exception as e:
             logger.error(f"Gazette scraper failed: {e}")
