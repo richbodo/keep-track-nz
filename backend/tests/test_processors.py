@@ -5,7 +5,6 @@ from unittest.mock import Mock, patch
 
 from keep_track_nz.processors import (
     DataValidator,
-    Deduplicator,
     LabelClassifier
 )
 
@@ -118,104 +117,6 @@ class TestDataValidator:
         result = validator.process(data_with_dates)
         assert len(result) == 2
         assert all(action['date'] == '2024-12-15' for action in result)
-
-
-class TestDeduplicator:
-    """Test Deduplicator processor."""
-
-    def test_remove_exact_duplicates(self):
-        """Test removal of exact duplicates."""
-        deduplicator = Deduplicator()
-
-        duplicate_data = [
-            {
-                'id': 'test-2024-001',
-                'title': 'Test Action',
-                'url': 'https://example.com/test',
-                'date': '2024-12-15'
-            },
-            {
-                'id': 'test-2024-001',  # Same ID
-                'title': 'Test Action',
-                'url': 'https://example.com/test',
-                'date': '2024-12-15'
-            }
-        ]
-
-        result = deduplicator.process(duplicate_data)
-        assert len(result) == 1
-
-    def test_remove_similar_duplicates(self):
-        """Test removal of similar duplicates."""
-        deduplicator = Deduplicator()
-
-        similar_data = [
-            {
-                'id': 'test-2024-001',
-                'title': 'Fast-track Approvals Bill',
-                'url': 'https://example.com/test1',
-                'date': '2024-12-15',
-                'source_system': 'PARLIAMENT'
-            },
-            {
-                'id': 'test-002',
-                'title': 'Fast-track Approvals Bill',  # Same title
-                'url': 'https://example.com/test2',
-                'date': '2024-12-15',  # Same date
-                'source_system': 'PARLIAMENT'
-            }
-        ]
-
-        result = deduplicator.process(similar_data)
-        assert len(result) == 1
-
-    def test_cross_source_duplicates(self):
-        """Test removal of cross-source duplicates."""
-        deduplicator = Deduplicator()
-
-        cross_source_data = [
-            {
-                'id': 'parl-2024-001',
-                'title': 'Fast-track Approvals Bill',
-                'source_system': 'PARLIAMENT',
-                'url': 'https://parliament.nz/bill1',
-                'date': '2024-12-15'
-            },
-            {
-                'id': 'leg-2024-001',
-                'title': 'Fast-track Approvals Act 2024',  # Similar title, different source
-                'source_system': 'LEGISLATION',
-                'url': 'https://legislation.govt.nz/act1',
-                'date': '2024-12-16'
-            }
-        ]
-
-        result = deduplicator.process(cross_source_data)
-        # Should keep legislation (higher priority) and remove parliament bill
-        assert len(result) == 1
-        assert result[0]['source_system'] == 'LEGISLATION'
-
-    def test_keep_different_actions(self):
-        """Test that different actions are kept."""
-        deduplicator = Deduplicator()
-
-        different_data = [
-            {
-                'id': 'test-2024-001',
-                'title': 'Housing Bill',
-                'url': 'https://example.com/housing',
-                'date': '2024-12-15'
-            },
-            {
-                'id': 'test-002',
-                'title': 'Education Act',
-                'url': 'https://example.com/education',
-                'date': '2024-12-15'
-            }
-        ]
-
-        result = deduplicator.process(different_data)
-        assert len(result) == 2
 
 
 class TestLabelClassifier:

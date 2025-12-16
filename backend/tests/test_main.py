@@ -55,7 +55,7 @@ class TestDataCollectionOrchestrator:
         assert orchestrator.dry_run is True
         assert orchestrator.limit_per_source == 5
         assert len(orchestrator.scrapers) == 4  # All 4 scrapers
-        assert len(orchestrator.processors) == 3  # Validator, Deduplicator, Classifier
+        assert len(orchestrator.processors) == 2  # Validator, Classifier
 
     @patch('keep_track_nz.main.parliament.ParliamentScraper')
     @patch('keep_track_nz.main.legislation.LegislationScraper')
@@ -152,19 +152,16 @@ class TestDataCollectionOrchestrator:
         assert isinstance(actions[1], GovernmentAction)
 
     @patch('keep_track_nz.processors.DataValidator.process')
-    @patch('keep_track_nz.processors.Deduplicator.process')
     @patch('keep_track_nz.processors.LabelClassifier.process')
     def test_process_data(
         self,
         mock_classifier,
-        mock_deduplicator,
         mock_validator,
         temp_output_dir
     ):
         """Test data processing pipeline."""
         # Mock processors
         mock_validator.return_value = [{'id': 'test', 'title': 'Test'}]
-        mock_deduplicator.return_value = [{'id': 'test', 'title': 'Test'}]
         mock_classifier.return_value = [{'id': 'test', 'title': 'Test', 'labels': ['Housing']}]
 
         orchestrator = DataCollectionOrchestrator(temp_output_dir, dry_run=True)
@@ -183,12 +180,10 @@ class TestDataCollectionOrchestrator:
 
         # Should call all processors in order
         assert mock_validator.called
-        assert mock_deduplicator.called
         assert mock_classifier.called
 
         # Check processing stats
         assert 'DataValidator' in orchestrator.run_stats['processing_stats']
-        assert 'Deduplicator' in orchestrator.run_stats['processing_stats']
         assert 'LabelClassifier' in orchestrator.run_stats['processing_stats']
 
     @patch('keep_track_nz.exporters.TypeScriptExporter.export')

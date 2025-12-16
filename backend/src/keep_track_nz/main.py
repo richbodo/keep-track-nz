@@ -19,9 +19,15 @@ def _load_config():
     
     if config_path.exists():
         spec = importlib.util.spec_from_file_location("config", config_path)
-        config_module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(config_module)
-        return config_module
+        if spec is not None and spec.loader is not None:
+            config_module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(config_module)
+            return config_module
+        else:
+            warnings.warn(
+                f"Failed to load config module spec from {config_path}. Using default configuration.",
+                UserWarning
+            )
     else:
         warnings.warn(
             f"Config file not found at {config_path}. Using default configuration. "
