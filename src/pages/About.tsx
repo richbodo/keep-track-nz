@@ -38,8 +38,8 @@ const About = () => {
               <span className="text-muted-foreground">Action De-Duper - checks to make sure that there are no duplicate actions in the action files</span>
             </li>
             <li className="flex items-start gap-3">
-              <Circle className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-              <span className="text-muted-foreground">Move hosting to github</span>
+              <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-500 mt-0.5 flex-shrink-0" />
+              <span className="text-foreground">Move hosting to github</span>
             </li>
             <li className="flex items-start gap-3">
               <Circle className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />

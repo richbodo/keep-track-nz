@@ -9,8 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import type { SourceSystem } from '@/data/fixtureData';
-import { labels } from '@/data/fixtureData';
+import type { SourceSystem } from '@/data/actions';
+import { labels } from '@/data/actions';
 
 interface ActionFiltersProps {
   searchQuery: string;

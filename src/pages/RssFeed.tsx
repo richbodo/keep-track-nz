@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Copy, Rss } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { labels } from '@/data/fixtureData';
+import { labels } from '@/data/actions';
 
 const RssFeed = () => {
   const { toast } = useToast();

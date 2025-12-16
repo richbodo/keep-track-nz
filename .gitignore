@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Backend data backups (git provides history)
+src/data/*.backup_*.ts
+
+# Python backend
+backend/__pycache__/
+backend/**/__pycache__/
+backend/.venv/
+backend/*.pyc
+backend/htmlcov/
+backend/coverage.xml
+backend/.pytest_cache/

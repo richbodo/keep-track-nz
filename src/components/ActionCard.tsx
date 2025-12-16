@@ -1,7 +1,7 @@
 import { ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import type { GovernmentAction, SourceSystem } from '@/data/fixtureData';
+import type { GovernmentAction, SourceSystem } from '@/data/actions';
 import { cn } from '@/lib/utils';
 
 const sourceConfig: Record<SourceSystem, { label: string; className: string }> = {
