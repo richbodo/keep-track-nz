@@ -49,6 +49,7 @@ class ActionMetadata(BaseModel):
     # Common fields
     document_type: Optional[str] = Field(None, description="Type of document")
     portfolio: Optional[str] = Field(None, description="Government portfolio")
+    version: Optional[str] = Field(None, description="Version information for versioned documents")
 
     @field_validator('commencement_date')
     @classmethod
@@ -74,6 +75,8 @@ class GovernmentAction(BaseModel):
     summary: str = Field(..., description="Summary of the action")
     labels: List[str] = Field(default_factory=list, description="Classification labels")
     metadata: ActionMetadata = Field(default_factory=ActionMetadata, description="Source-specific metadata")
+    version: Optional[str] = Field(None, description="Version identifier for this action")
+    base_id: Optional[str] = Field(None, description="Base ID for tracking relationships between versions")
 
     @field_validator('date')
     @classmethod
@@ -104,9 +107,9 @@ class GovernmentAction(BaseModel):
     @classmethod
     def validate_id_format(cls, v):
         """Validate ID follows expected pattern."""
-        # ID should be in format: {source_prefix}-{year}-{number}
-        if not re.match(r'^[a-z]{3,8}-\d{4}-\d{3,6}$', v):
-            raise ValueError('ID must follow pattern: {prefix}-{year}-{number}')
+        # ID should be in format: {source_prefix}-{year}-{number} or {source_prefix}-{year}-{number}-v{version}
+        if not re.match(r'^[a-z]{3,8}-\d{4}-\d{3,6}(?:-v\d+)?$', v):
+            raise ValueError('ID must follow pattern: {prefix}-{year}-{number} or {prefix}-{year}-{number}-v{version}')
         return v
 
     def to_dict(self) -> Dict[str, Any]:

@@ -55,7 +55,7 @@ class TestDataCollectionOrchestrator:
         assert orchestrator.dry_run is True
         assert orchestrator.limit_per_source == 5
         assert len(orchestrator.scrapers) == 4  # All 4 scrapers
-        assert len(orchestrator.processors) == 2  # Validator, Classifier
+        assert len(orchestrator.processors) == 3  # Validator, Deduplicator, Classifier
 
     @patch('keep_track_nz.main.parliament.ParliamentScraper')
     @patch('keep_track_nz.main.legislation.LegislationScraper')

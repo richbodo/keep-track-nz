@@ -19,12 +19,22 @@ class BeehiveScraper(BaseScraper):
     """Scraper for New Zealand Government announcements from beehive.govt.nz."""
 
     BASE_URL = "https://www.beehive.govt.nz"
-    RELEASES_URL = f"{BASE_URL}/release"
-    SPEECHES_URL = f"{BASE_URL}/speech"
+    RELEASES_URL = f"{BASE_URL}/releases"
+    SPEECHES_URL = f"{BASE_URL}/speeches"
 
     def __init__(self, session: requests.Session | None = None, debug_context=None):
         """Initialize Beehive scraper."""
         super().__init__(session, debug_context)
+
+        # Add additional headers to bypass bot detection
+        self.session.headers.update({
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'DNT': '1',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+        })
 
     def get_source_system(self) -> str:
         """Get the source system identifier."""
@@ -77,51 +87,97 @@ class BeehiveScraper(BaseScraper):
             return []
 
     def _scrape_releases(self, limit: int | None = None) -> List[Dict[str, Any]]:
-        """Scrape press releases from beehive.govt.nz/release."""
+        """Scrape press releases from beehive.govt.nz/releases."""
         try:
-            response = self._make_request(self.RELEASES_URL)
+            response = self._make_request_with_retry(self.RELEASES_URL)
             return self._parse_announcements_page(response, 'Press Release', limit)
         except Exception as e:
             logger.error(f"Failed to scrape releases: {e}")
             return []
 
     def _scrape_speeches(self, limit: int | None = None) -> List[Dict[str, Any]]:
-        """Scrape speeches from beehive.govt.nz/speech."""
+        """Scrape speeches from beehive.govt.nz/speeches."""
         try:
-            response = self._make_request(self.SPEECHES_URL)
+            response = self._make_request_with_retry(self.SPEECHES_URL)
             return self._parse_announcements_page(response, 'Speech', limit)
         except Exception as e:
             logger.error(f"Failed to scrape speeches: {e}")
             return []
+
+    def _make_request_with_retry(self, url: str, max_retries: int = 3) -> requests.Response:
+        """Make HTTP request with retry logic for bot protection."""
+        import time
+
+        for attempt in range(max_retries):
+            try:
+                if attempt > 0:
+                    # Add delay between retries to avoid rate limiting
+                    time.sleep(2 ** attempt)  # Exponential backoff
+
+                self._debug_log_request_details(f"{url} (attempt {attempt + 1})")
+                response = self.session.get(url, timeout=30)
+                response.raise_for_status()
+
+                # Check if we got the bot protection page
+                if len(response.text) < 500 and 'incapsula' in response.text.lower():
+                    self._debug_log_parsing_attempt(f"Bot protection detected", False, f"Attempt {attempt + 1}")
+                    if attempt < max_retries - 1:
+                        continue
+
+                self._debug_log_response_details(response)
+                return response
+
+            except requests.exceptions.RequestException as e:
+                self._debug_log_parsing_attempt(f"Request failed", False, f"Attempt {attempt + 1}: {e}")
+                if attempt == max_retries - 1:
+                    logger.error(f"Request failed for {url} after {max_retries} attempts: {e}")
+                    raise
+
+        return response
 
     def _parse_announcements_page(self, response: requests.Response, document_type: str, limit: int | None) -> List[Dict[str, Any]]:
         """Parse announcements listing page."""
         soup = BeautifulSoup(response.text, 'html.parser')
         announcements = []
 
-        # Look for announcement listing elements
+        # Look for announcement listing elements (updated for current Beehive structure)
         announcement_selectors = [
+            'article',  # Primary selector for current Beehive structure
             '.view-content .views-row',
             '.release-list .release-item',
             '.speech-list .speech-item',
             '.content-list .content-item',
-            'article',
             '.node-teaser',
-            '.announcement'
+            '.announcement',
+            '.teaser',  # Common Drupal teaser class
+            '.node'     # Generic Drupal node
         ]
 
         announcement_elements = []
+        successful_selector = None
         for selector in announcement_selectors:
             announcement_elements = soup.select(selector)
             if announcement_elements:
-                logger.debug(f"Found {len(announcement_elements)} announcements using selector: {selector}")
+                successful_selector = selector
+                self._debug_log_parsing_attempt(f"Beehive selector {selector}", True, f"Found {len(announcement_elements)} elements")
                 break
+
+        self._debug_log_selector_attempts(announcement_selectors, len(announcement_elements), successful_selector)
 
         # Fallback: look for any links in the main content
         if not announcement_elements:
-            main_content = soup.select_one('.main-content, .content, #content')
+            self._debug_log_parsing_attempt("Beehive fallback link search", False, "Trying link fallback")
+            main_content = soup.select_one('.main-content, .content, #content, .region-content, main')
             if main_content:
-                announcement_elements = main_content.select('a[href*="/release/"], a[href*="/speech/"]')
+                announcement_elements = main_content.select('a[href*="/release"], a[href*="/speech"]')
+                if announcement_elements:
+                    self._debug_log_parsing_attempt("Beehive link fallback", True, f"Found {len(announcement_elements)} links")
+
+        if not announcement_elements:
+            self._debug_log_parsing_attempt("Beehive announcement extraction", False, "No announcement elements found")
+            return []
+
+        self._debug_log_parsing_attempt("Beehive announcement extraction", True, f"Processing {len(announcement_elements)} elements")
 
         for element in announcement_elements:
             if limit and len(announcements) >= limit:
@@ -136,59 +192,109 @@ class BeehiveScraper(BaseScraper):
     def _extract_announcement_from_element(self, element, document_type: str) -> Optional[Dict[str, Any]]:
         """Extract announcement data from HTML element."""
         try:
-            # Find the main link
-            link = element.select_one('a') if element.name != 'a' else element
+            # Find the main link - prioritize heading links
+            link = None
+            title = ''
+
+            # Look for links in headings first (more reliable)
+            heading_selectors = ['h1 a', 'h2 a', 'h3 a', '.title a', '.heading a']
+            for selector in heading_selectors:
+                heading_link = element.select_one(selector)
+                if heading_link:
+                    link = heading_link
+                    title = heading_link.get_text(strip=True)
+                    break
+
+            # Fallback to any link if no heading link found
             if not link:
+                link = element.select_one('a') if element.name != 'a' else element
+                if link:
+                    title = link.get_text(strip=True)
+
+            if not link or not title:
+                self._debug_log_parsing_attempt("Beehive element extraction", False, "No link or title found")
                 return None
 
-            title = link.get_text(strip=True)
             url = link.get('href', '')
 
             # Ensure URL is absolute
             if url and not url.startswith('http'):
                 url = urljoin(self.BASE_URL, url)
 
-            # Extract date
+            # Extract date with enhanced selectors for current Beehive structure
             date_str = ''
             date_selectors = [
+                'time',  # Most reliable - HTML5 time elements
                 '.date',
                 '.published',
                 '.timestamp',
-                'time',
                 '.field-name-post-date',
-                '.submitted'
+                '.submitted',
+                '.datetime',
+                '.publish-date',
+                '.date-display-single'
             ]
 
             for selector in date_selectors:
                 date_elem = element.select_one(selector)
                 if date_elem:
-                    date_str = date_elem.get_text(strip=True)
-                    break
+                    # Try datetime attribute first
+                    if date_elem.has_attr('datetime'):
+                        date_str = date_elem.get('datetime')
+                    else:
+                        date_str = date_elem.get_text(strip=True)
+                    if date_str:
+                        self._debug_log_parsing_attempt(f"Date extraction via {selector}", True, date_str[:20])
+                        break
 
             # If no date found, try to extract from nearby text
             if not date_str:
                 text = element.get_text()
-                date_match = re.search(r'(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4})', text)
-                if date_match:
-                    date_str = date_match.group(1)
+                # Look for various date patterns
+                date_patterns = [
+                    r'(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4})',  # DD/MM/YYYY or DD-MM-YYYY
+                    r'(\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2})',  # YYYY/MM/DD or YYYY-MM-DD
+                    r'(\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4})',  # DD Month YYYY
+                ]
+                for pattern in date_patterns:
+                    date_match = re.search(pattern, text, re.IGNORECASE)
+                    if date_match:
+                        date_str = date_match.group(1)
+                        self._debug_log_parsing_attempt("Date extraction via regex", True, date_str)
+                        break
 
-            # Extract portfolio/minister from title or URL
+            # Extract portfolio/minister from title or element
             portfolio = self._extract_portfolio_from_title(title)
             primary_entity = self._extract_minister_from_title(title)
 
+            # Look for minister information in element text or attributes
+            if not primary_entity or primary_entity == 'Government':
+                minister_selectors = ['.minister', '.author', '.byline', '.attribution']
+                for selector in minister_selectors:
+                    minister_elem = element.select_one(selector)
+                    if minister_elem:
+                        minister_text = minister_elem.get_text(strip=True)
+                        if minister_text and len(minister_text) > 3:
+                            primary_entity = minister_text
+                            break
+
             if title and url:
-                return {
+                announcement = {
                     'title': title,
                     'url': url,
                     'date': self._normalize_date(date_str) or datetime.now().strftime('%Y-%m-%d'),
-                    'primary_entity': primary_entity,
+                    'primary_entity': primary_entity or 'Government',
                     'document_type': document_type,
                     'portfolio': portfolio,
                     'summary': '',  # Will be extracted from detail page
                 }
 
+                self._debug_log_parsing_attempt("Beehive announcement", True, f"'{title[:50]}...'")
+                return announcement
+
         except Exception as e:
             logger.warning(f"Failed to extract announcement from element: {e}")
+            self._debug_log_parsing_attempt("Beehive element extraction", False, str(e))
 
         return None
 
@@ -421,19 +527,26 @@ class BeehiveScraper(BaseScraper):
     def create_government_action(self, raw_data: Dict[str, Any]) -> GovernmentAction:
         """Convert raw Beehive data to GovernmentAction."""
         try:
-            # Generate ID
+            # Generate version-aware ID
             url_path = urlparse(raw_data['url']).path
             path_parts = [part for part in url_path.split('/') if part]
             url_id = path_parts[-1] if path_parts else 'unknown'
 
-            # Clean URL ID and create action ID
+            # Clean URL ID and create base ID
             clean_id = re.sub(r'[^a-zA-Z0-9]', '', url_id)[:10]
-            action_id = f"bee-{datetime.now().year}-{clean_id}"
+            base_id = f"bee-{datetime.now().year}-{clean_id}"
 
-            # Create metadata
+            # Beehive releases typically don't have versions, default to v1
+            version = raw_data.get('version', '1')
+
+            # Generate full ID with version
+            action_id = f"{base_id}-v{version}"
+
+            # Create metadata with version information
             metadata = ActionMetadata(
                 document_type=raw_data.get('document_type', 'Press Release'),
-                portfolio=raw_data.get('portfolio')
+                portfolio=raw_data.get('portfolio'),
+                version=version
             )
 
             # Create the action
@@ -446,7 +559,9 @@ class BeehiveScraper(BaseScraper):
                 primary_entity=raw_data.get('primary_entity', 'Government'),
                 summary=raw_data.get('summary', ''),
                 labels=[],  # Will be filled by label processor
-                metadata=metadata
+                metadata=metadata,
+                version=version,
+                base_id=base_id
             )
 
         except Exception as e:
@@ -457,10 +572,14 @@ class BeehiveScraper(BaseScraper):
 def main():
     """Test the Beehive scraper."""
     import sys
+    from ..debug import DebugContext
 
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG if '--debug' in sys.argv else logging.INFO)
 
-    scraper = BeehiveScraper()
+    # Enable debug context for testing
+    debug_context = DebugContext(enabled=True)
+    scraper = BeehiveScraper(debug_context=debug_context)
+
     try:
         if '--test' in sys.argv:
             announcements = scraper.scrape(limit=5)

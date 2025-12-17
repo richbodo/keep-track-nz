@@ -455,22 +455,28 @@ class GazetteScraper(BaseScraper):
     def create_government_action(self, raw_data: Dict[str, Any]) -> GovernmentAction:
         """Convert raw Gazette data to GovernmentAction."""
         try:
-            # Generate ID
+            # Generate version-aware ID
             notice_number = raw_data.get('notice_number', '')
+            version = raw_data.get('version', '1')
+
             if notice_number:
                 # Extract only digits from notice number
                 clean_number = re.sub(r'[^0-9]', '', notice_number)[-6:]
                 if not clean_number:
                     clean_number = datetime.now().strftime('%m%d%H')
-                action_id = f"gaz-{datetime.now().year}-{clean_number.zfill(3)}"
+                base_id = f"gaz-{datetime.now().year}-{clean_number.zfill(3)}"
             else:
-                action_id = f"gaz-{datetime.now().year}-{datetime.now().strftime('%H%M%S')[:3]}"
+                base_id = f"gaz-{datetime.now().year}-{datetime.now().strftime('%H%M%S')[:3]}"
 
-            # Create metadata
+            # Generate full ID with version
+            action_id = f"{base_id}-v{version}"
+
+            # Create metadata with version information
             metadata = ActionMetadata(
                 notice_number=raw_data.get('notice_number'),
                 notice_type=raw_data.get('notice_type'),
-                portfolio=raw_data.get('portfolio')
+                portfolio=raw_data.get('portfolio'),
+                version=version
             )
 
             # Create the action
@@ -483,7 +489,9 @@ class GazetteScraper(BaseScraper):
                 primary_entity=raw_data.get('primary_entity', 'Government'),
                 summary=raw_data.get('summary', ''),
                 labels=[],  # Will be filled by label processor
-                metadata=metadata
+                metadata=metadata,
+                version=version,
+                base_id=base_id
             )
 
         except Exception as e:
