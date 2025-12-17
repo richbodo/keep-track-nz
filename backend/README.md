@@ -245,6 +245,73 @@ uv run python -m keep_track_nz.git_integration --test
 - Verify output directory exists
 - Check TypeScript syntax generation
 
+### Current Scraper Status and Limitations
+
+As of December 2025, each scraper has specific characteristics and limitations:
+
+#### ✅ Working Scrapers
+
+**Legislation Scraper (legislation.govt.nz)**
+- Status: ✅ Fully functional
+- Returns: ~145 recent Acts of Parliament
+- Notes: Reliable HTML structure, consistent data format
+
+**Gazette Scraper (gazette.govt.nz)**
+- Status: ✅ Fully functional
+- Returns: ~100 official government notices
+- Notes: Uses DigitalNZ API with HTML fallback
+
+#### ⚠️ Limited Functionality Scrapers
+
+**Parliament Scraper (bills.parliament.nz)**
+- Status: ⚠️ Requires JavaScript rendering
+- Returns: 0 items (currently non-functional)
+- Issue: Website is heavily JavaScript-based and loads content dynamically
+- URLs Fixed: Updated to use `/bills-proposed-laws?lang=en`
+- Selectors Fixed: Updated to parse table structure (`table tbody tr`)
+- **Potential Solutions:**
+  - Implement Playwright/Selenium for JavaScript rendering
+  - Investigate if Parliament provides a JSON API endpoint
+  - Use headless browser automation for data extraction
+
+**Beehive Scraper (beehive.govt.nz)**
+- Status: ⚠️ Blocked by bot protection
+- Returns: 0 items (currently blocked)
+- Issue: Incapsula bot detection service blocks requests
+- URLs Fixed: Corrected to use `/releases` and `/speeches`
+- Selectors Fixed: Updated to parse article structure
+- **Current Mitigations:** Enhanced headers, retry logic, exponential backoff
+- **Potential Solutions:**
+  - Implement Playwright/Selenium to bypass bot protection
+  - Use rotating user agents and proxy services
+  - Investigate if Beehive provides RSS feeds or API access
+
+#### Debug Capabilities
+
+All scrapers now include comprehensive debug logging:
+- Request/response details with status codes and content types
+- HTML sample viewing (first 500 characters)
+- Selector attempt tracking with success/failure indicators
+- Parsing status reporting with clear error messages
+- Visual indicators (✅❌🌐📄🔍) for better readability
+
+**Test individual scrapers with debug output:**
+```bash
+# Test with debug information
+cd backend
+uv run python -m keep_track_nz.scrapers.parliament --test --debug
+uv run python -m keep_track_nz.scrapers.beehive --test --debug
+uv run python -m keep_track_nz.scrapers.legislation --test --debug
+uv run python -m keep_track_nz.scrapers.gazette --test --debug
+```
+
+#### Recommended Next Steps
+
+1. **High Priority:** Implement JavaScript rendering support for Parliament scraper
+2. **High Priority:** Add bot protection bypass for Beehive scraper
+3. **Medium Priority:** Investigate API alternatives for both problematic scrapers
+4. **Low Priority:** Add website change detection to alert when scraper maintenance is needed
+
 ### Debug Mode
 
 Run with verbose logging:

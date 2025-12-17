@@ -64,7 +64,8 @@ from .scrapers import (
 )
 from .processors import (
     DataValidator,
-    LabelClassifier
+    LabelClassifier,
+    DeduplicationProcessor
 )
 from .exporters import TypeScriptExporter
 from .git_integration import GitIntegration
@@ -120,6 +121,7 @@ class DataCollectionOrchestrator:
 
         self.processors = [
             DataValidator(debug_context=self.debug_context, strict_mode=False),
+            DeduplicationProcessor(debug_context=self.debug_context),
             LabelClassifier(debug_context=self.debug_context)
         ]
 
@@ -274,20 +276,36 @@ class DataCollectionOrchestrator:
         return actions
 
     def _process_data(self, actions: List[GovernmentAction]) -> List[GovernmentAction]:
-        """Process data through validation and labeling."""
-        logger.info("Processing data through validation and labeling")
-
-        # Convert actions to dictionaries for processing
-        data = [action.to_dict() for action in actions]
+        """Process data through validation, deduplication, and labeling."""
+        logger.info("Processing data through validation, deduplication, and labeling")
 
         for processor in self.processors:
             processor_name = processor.__class__.__name__
             logger.info(f"Running {processor_name}")
 
             try:
-                input_count = len(data)
-                data = processor.process(data)
-                output_count = len(data)
+                input_count = len(actions)
+
+                if processor_name == 'DeduplicationProcessor':
+                    # Deduplication processor expects GovernmentAction objects
+                    actions = processor.process(actions)
+                else:
+                    # Other processors expect dictionaries
+                    data = [action.to_dict() for action in actions]
+                    data = processor.process(data)
+
+                    # Convert back to GovernmentAction objects
+                    processed_actions = []
+                    for item in data:
+                        try:
+                            action = GovernmentAction(**item)
+                            processed_actions.append(action)
+                        except Exception as e:
+                            logger.warning(f"Failed to create GovernmentAction from processed data: {e}")
+
+                    actions = processed_actions
+
+                output_count = len(actions)
 
                 self.run_stats['processing_stats'][processor_name] = {
                     'input_count': input_count,
@@ -305,19 +323,9 @@ class DataCollectionOrchestrator:
                 }
                 self.run_stats['errors'].append(f"Processing error ({processor_name}): {e}")
 
-        # Convert back to GovernmentAction objects
-        processed_actions = []
-        for item in data:
-            try:
-                # Create action from processed data
-                action = GovernmentAction(**item)
-                processed_actions.append(action)
-            except Exception as e:
-                logger.warning(f"Failed to create GovernmentAction from processed data: {e}")
-
-        self.run_stats['total_processed'] = len(processed_actions)
-        logger.info(f"Processing complete: {len(processed_actions)} final actions")
-        return processed_actions
+        self.run_stats['total_processed'] = len(actions)
+        logger.info(f"Processing complete: {len(actions)} final actions")
+        return actions
 
     def _export_data(self, actions: List[GovernmentAction]) -> bool:
         """Export processed data to TypeScript format."""

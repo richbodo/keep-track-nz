@@ -1,63 +1,63 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ActionCard } from '@/components/ActionCard';
 import { ActionFilters } from '@/components/ActionFilters';
 import { actions, type SourceSystem } from '@/data/actions';
+import {
+  filterAndSortActions,
+  createDefaultFilterState,
+  hasActiveFilters,
+  validateFilterState,
+  type ActionFilterState
+} from '@/lib/actionFilters';
 
 const Index = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSource, setSelectedSource] = useState<SourceSystem | 'ALL'>('ALL');
-  const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
-  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
+  // Initialize filter state using the new utility function
+  const [filterState, setFilterState] = useState<ActionFilterState>(() =>
+    createDefaultFilterState()
+  );
 
-  const filteredActions = useMemo(() => {
-    let filtered = [...actions];
+  // Memoized filtering with performance tracking
+  const filterResult = useMemo(() => {
+    // Validate filter state to ensure data integrity
+    const validatedState = validateFilterState(filterState);
 
-    // Filter by search
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (action) =>
-          action.title.toLowerCase().includes(query) ||
-          action.summary.toLowerCase().includes(query) ||
-          action.primary_entity.toLowerCase().includes(query)
-      );
-    }
+    // Apply all filters using our comprehensive filtering logic
+    return filterAndSortActions(actions, validatedState);
+  }, [filterState]);
 
-    // Filter by source
-    if (selectedSource !== 'ALL') {
-      filtered = filtered.filter((action) => action.source_system === selectedSource);
-    }
+  // Extract results for easier access
+  const { actions: filteredActions, totalMatched, searchTime } = filterResult;
 
-    // Filter by labels
-    if (selectedLabels.length > 0) {
-      filtered = filtered.filter((action) =>
-        selectedLabels.some((label) => action.labels.includes(label))
-      );
-    }
+  // Handler functions with proper state management and error handling
+  const handleSearchChange = useCallback((searchQuery: string) => {
+    setFilterState(prev => ({ ...prev, searchQuery }));
+  }, []);
 
-    // Sort
-    filtered.sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
-      return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
-    });
+  const handleSourceChange = useCallback((selectedSource: SourceSystem | 'ALL') => {
+    setFilterState(prev => ({ ...prev, selectedSource }));
+  }, []);
 
-    return filtered;
-  }, [searchQuery, selectedSource, selectedLabels, sortOrder]);
+  const handleLabelToggle = useCallback((label: string) => {
+    setFilterState(prev => ({
+      ...prev,
+      selectedLabels: prev.selectedLabels.includes(label)
+        ? prev.selectedLabels.filter((l) => l !== label)
+        : [...prev.selectedLabels, label]
+    }));
+  }, []);
 
-  const handleLabelToggle = (label: string) => {
-    setSelectedLabels((prev) =>
-      prev.includes(label) ? prev.filter((l) => l !== label) : [...prev, label]
-    );
-  };
+  const handleSortChange = useCallback((sortOrder: 'newest' | 'oldest') => {
+    setFilterState(prev => ({ ...prev, sortOrder }));
+  }, []);
 
-  const handleClearFilters = () => {
-    setSearchQuery('');
-    setSelectedSource('ALL');
-    setSelectedLabels([]);
-  };
+  const handleClearFilters = useCallback(() => {
+    setFilterState(createDefaultFilterState());
+  }, []);
+
+  // Check if we have active filters for UI purposes
+  const hasActiveFiltersState = hasActiveFilters(filterState);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -73,20 +73,25 @@ const Index = () => {
 
           <div className="mb-6">
             <ActionFilters
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-              selectedSource={selectedSource}
-              onSourceChange={setSelectedSource}
-              selectedLabels={selectedLabels}
+              searchQuery={filterState.searchQuery}
+              onSearchChange={handleSearchChange}
+              selectedSource={filterState.selectedSource}
+              onSourceChange={handleSourceChange}
+              selectedLabels={filterState.selectedLabels}
               onLabelToggle={handleLabelToggle}
               onClearFilters={handleClearFilters}
-              sortOrder={sortOrder}
-              onSortChange={setSortOrder}
+              sortOrder={filterState.sortOrder}
+              onSortChange={handleSortChange}
             />
           </div>
 
           <div className="mb-4 text-sm text-muted-foreground">
-            Showing {filteredActions.length} of {actions.length} actions
+            Showing {totalMatched} of {actions.length} actions
+            {searchTime && searchTime > 0 && (
+              <span className="ml-2 text-xs text-muted-foreground/70">
+                (search completed in {searchTime.toFixed(1)}ms)
+              </span>
+            )}
           </div>
 
           <div className="space-y-4">

@@ -21,6 +21,7 @@ class ParliamentScraper(BaseScraper):
     BASE_URL = "https://bills.parliament.nz"
     BILLS_API_URL = f"{BASE_URL}/api/bills"
     BILLS_SEARCH_URL = f"{BASE_URL}/bills-proposed-laws"
+    CURRENT_BILLS_URL = f"{BASE_URL}/bills-proposed-laws?lang=en"
 
     def __init__(self, session: requests.Session | None = None, debug_context=None):
         """Initialize Parliament scraper."""
@@ -68,24 +69,50 @@ class ParliamentScraper(BaseScraper):
     def _scrape_bills_list(self, limit: int | None = None) -> List[Dict[str, Any]]:
         """Scrape the bills list page to get recent bills."""
         try:
-            # Try different endpoints
-            urls_to_try = [
-                f"{self.BILLS_SEARCH_URL}?Tab=Current",
-                f"{self.BILLS_SEARCH_URL}",
-                f"{self.BASE_URL}/api/bills/search",
+            # Try API first, then fallback to HTML scraping
+            self._debug_log_parsing_attempt("Parliament API access", False, "Attempting API first")
+
+            # Try the API endpoint with proper parameters
+            api_urls = [
+                f"{self.BILLS_API_URL}?limit={limit or 50}",
+                f"{self.BILLS_API_URL}",
             ]
 
-            for url in urls_to_try:
+            for url in api_urls:
+                try:
+                    response = self._make_request(url)
+                    if response.status_code == 200 and 'json' in response.headers.get('content-type', '').lower():
+                        bills = self._parse_bills_response(response, limit)
+                        if bills:
+                            self._debug_log_parsing_attempt("Parliament API", True, f"Found {len(bills)} bills via API")
+                            return bills
+                except Exception as e:
+                    self._debug_log_parsing_attempt(f"API URL {url}", False, str(e))
+                    continue
+
+            self._debug_log_parsing_attempt("Parliament API", False, "API failed, trying HTML")
+
+            # If API fails, try HTML scraping with correct URLs
+            html_urls = [
+                self.CURRENT_BILLS_URL,
+                f"{self.BILLS_SEARCH_URL}?lang=en",
+                self.BILLS_SEARCH_URL,
+            ]
+
+            for url in html_urls:
                 try:
                     response = self._make_request(url)
                     if response.status_code == 200:
-                        return self._parse_bills_response(response, limit)
+                        bills = self._parse_bills_response(response, limit)
+                        if bills:
+                            self._debug_log_parsing_attempt(f"HTML scraping from {url}", True, f"Found {len(bills)} bills")
+                            return bills
                 except Exception as e:
-                    logger.debug(f"Failed to fetch from {url}: {e}")
+                    self._debug_log_parsing_attempt(f"HTML URL {url}", False, str(e))
                     continue
 
-            # If API calls fail, try scraping the HTML page
-            return self._scrape_bills_html(limit)
+            self._debug_log_parsing_attempt("Parliament scraping", False, "All methods failed")
+            return []
 
         except Exception as e:
             logger.error(f"Failed to scrape bills list: {e}")
@@ -166,21 +193,34 @@ class ParliamentScraper(BaseScraper):
         soup = BeautifulSoup(response.text, 'html.parser')
         bills = []
 
-        # Look for bill containers (this will need adjustment based on actual HTML structure)
+        # Look for bill table rows (current Parliament website structure)
         bill_selectors = [
+            'table tbody tr',  # Primary selector for Parliament table
             '.bill-item',
             '.bill-card',
             '.search-result',
             '[data-bill-id]',
             'article',
-            '.legislation-item'
+            '.legislation-item',
+            '.datatable tbody tr',  # Alternative table structure
+            'tbody tr'  # Generic table rows as fallback
         ]
 
         bill_elements = []
+        successful_selector = None
         for selector in bill_selectors:
             bill_elements = soup.select(selector)
             if bill_elements:
+                successful_selector = selector
                 break
+
+        self._debug_log_selector_attempts(bill_selectors, len(bill_elements), successful_selector)
+
+        if not bill_elements:
+            self._debug_log_parsing_attempt("HTML bill extraction", False, "No bill elements found with any selector")
+            return []
+
+        self._debug_log_parsing_attempt("HTML bill extraction", True, f"Found {len(bill_elements)} potential bill elements")
 
         for element in bill_elements:
             if limit and len(bills) >= limit:
@@ -193,43 +233,89 @@ class ParliamentScraper(BaseScraper):
         return bills
 
     def _extract_bill_from_html(self, element) -> Optional[Dict[str, Any]]:
-        """Extract bill data from HTML element."""
+        """Extract bill data from HTML element (assumes table row structure)."""
         try:
-            # Extract title
+            # For table rows, extract data from columns
+            cells = element.select('td')
+            if len(cells) >= 2:  # At least title and one other column
+                # Extract title and URL from first column (usually contains the link)
+                title_cell = cells[0]
+                link_elem = title_cell.select_one('a')
+
+                if link_elem:
+                    title = link_elem.get_text(strip=True)
+                    url = link_elem.get('href', '')
+
+                    # Ensure URL is absolute
+                    if url and not url.startswith('http'):
+                        url = urljoin(self.BASE_URL, url)
+
+                    # Extract bill number from URL or title
+                    bill_number = self._extract_bill_number(title, url)
+
+                    # Extract sponsor from second or third column (varies by table structure)
+                    sponsor = ''
+                    for i in range(1, min(len(cells), 4)):  # Check columns 2-4 for sponsor
+                        cell_text = cells[i].get_text(strip=True)
+                        if cell_text and len(cell_text) > 2 and not cell_text.isdigit():
+                            # Skip numeric values (likely bill numbers) and very short text
+                            if not re.match(r'^\d{4}-\d{2}-\d{2}$', cell_text):  # Skip dates
+                                sponsor = cell_text
+                                break
+
+                    # Extract date from last activity column (usually last column)
+                    date_str = ''
+                    if len(cells) > 2:
+                        date_cell = cells[-1]  # Last column usually has date
+                        date_text = date_cell.get_text(strip=True)
+                        if re.search(r'\d{4}', date_text):  # Contains a year
+                            date_str = date_text
+
+                    if title and url:
+                        bill_data = {
+                            'bill_number': bill_number,
+                            'title': title,
+                            'url': url,
+                            'primary_entity': sponsor or 'Unknown',
+                            'parliament_number': 54,
+                        }
+
+                        if date_str:
+                            normalized_date = self._normalize_date(date_str)
+                            if normalized_date:
+                                bill_data['last_activity_date'] = normalized_date
+
+                        self._debug_log_parsing_attempt(f"Bill extraction", True, f"'{title[:50]}...'")
+                        return bill_data
+
+            # Fallback: try original extraction method for non-table structures
             title_selectors = ['h2', 'h3', '.title', '.bill-title', 'a']
             title = ''
+            url = ''
+
             for selector in title_selectors:
                 title_elem = element.select_one(selector)
                 if title_elem:
                     title = title_elem.get_text(strip=True)
+                    if title_elem.name == 'a':
+                        url = title_elem.get('href', '')
                     break
 
-            # Extract URL
-            link_elem = element.select_one('a')
-            url = ''
-            if link_elem:
-                url = link_elem.get('href', '')
-                if url and not url.startswith('http'):
-                    url = urljoin(self.BASE_URL, url)
+            if not url:
+                link_elem = element.select_one('a')
+                if link_elem:
+                    url = link_elem.get('href', '')
 
-            # Extract bill number from title or URL
-            bill_number = self._extract_bill_number(title, url)
-
-            # Extract sponsor/primary entity
-            sponsor_selectors = ['.sponsor', '.member', '.mp-name']
-            sponsor = ''
-            for selector in sponsor_selectors:
-                sponsor_elem = element.select_one(selector)
-                if sponsor_elem:
-                    sponsor = sponsor_elem.get_text(strip=True)
-                    break
+            if url and not url.startswith('http'):
+                url = urljoin(self.BASE_URL, url)
 
             if title and url:
+                bill_number = self._extract_bill_number(title, url)
                 return {
                     'bill_number': bill_number,
                     'title': title,
                     'url': url,
-                    'primary_entity': sponsor,
+                    'primary_entity': 'Unknown',
                     'parliament_number': 54,
                 }
 
@@ -404,13 +490,21 @@ class ParliamentScraper(BaseScraper):
     def create_government_action(self, raw_data: Dict[str, Any]) -> GovernmentAction:
         """Convert raw Parliament data to GovernmentAction."""
         try:
-            # Generate ID
+            # Generate version-aware ID
             bill_number = raw_data.get('bill_number', '000')
             # Clean bill number to only contain digits
             clean_bill_number = re.sub(r'[^0-9]', '', str(bill_number))[:6]
             if not clean_bill_number:
                 clean_bill_number = '000'
-            action_id = f"parl-{datetime.now().year}-{clean_bill_number.zfill(3)}"
+
+            # Parliament bills typically don't have URL versions, default to v1
+            version = raw_data.get('version', '1')
+
+            # Generate base ID
+            base_id = f"parl-{datetime.now().year}-{clean_bill_number.zfill(3)}"
+
+            # Generate full ID with version
+            action_id = f"{base_id}-v{version}"
 
             # Extract date (use introduction date or current date)
             date_str = raw_data.get('introduction_date') or datetime.now().strftime('%Y-%m-%d')
@@ -428,11 +522,12 @@ class ParliamentScraper(BaseScraper):
                     if s.get('stage') and s.get('date')
                 ]
 
-            # Create metadata
+            # Create metadata with version information
             metadata = ActionMetadata(
                 bill_number=raw_data.get('bill_number'),
                 parliament_number=raw_data.get('parliament_number', 54),
-                stage_history=stage_history
+                stage_history=stage_history,
+                version=version
             )
 
             # Create the action
@@ -445,7 +540,9 @@ class ParliamentScraper(BaseScraper):
                 primary_entity=raw_data.get('primary_entity', 'Unknown'),
                 summary=raw_data.get('summary', ''),
                 labels=[],  # Will be filled by label processor
-                metadata=metadata
+                metadata=metadata,
+                version=version,
+                base_id=base_id
             )
 
         except Exception as e:

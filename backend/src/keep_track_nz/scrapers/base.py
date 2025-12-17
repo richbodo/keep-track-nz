@@ -47,8 +47,10 @@ class BaseScraper(ABC):
     def _make_request(self, url: str, **kwargs) -> requests.Response:
         """Make HTTP request with error handling and retry logic."""
         try:
+            self._debug_log_request_details(url)
             response = self.session.get(url, timeout=30, **kwargs)
             response.raise_for_status()
+            self._debug_log_response_details(response)
             return response
         except requests.exceptions.RequestException as e:
             logger.error(f"Request failed for {url}: {e}")
@@ -83,6 +85,41 @@ class BaseScraper(ABC):
                 self._debug_log_item(item)
             self._debug_log_summary(len(items))
         return items
+
+    def _debug_log_request_details(self, url: str) -> None:
+        """Log debug information about the HTTP request being made."""
+        if self.debug_context and self.debug_context.enabled:
+            print(f"🌐 Making request to: {url}")
+
+    def _debug_log_response_details(self, response: requests.Response) -> None:
+        """Log debug information about HTTP response."""
+        if self.debug_context and self.debug_context.enabled:
+            content_type = response.headers.get('content-type', 'unknown')
+            content_size = len(response.text)
+            print(f"✅ Response: {response.status_code} | Content-Type: {content_type} | Size: {content_size} bytes")
+            self._debug_log_html_sample(response.text)
+
+    def _debug_log_html_sample(self, html_content: str) -> None:
+        """Log first 500 characters of HTML response for debugging."""
+        if self.debug_context and self.debug_context.enabled:
+            sample = html_content[:500].replace('\n', ' ').replace('\r', '').strip()
+            print(f"📄 HTML Sample: {sample}...")
+
+    def _debug_log_selector_attempts(self, selectors: List[str], elements_found: int, successful_selector: str = None) -> None:
+        """Log which selectors were tried and how many elements were found."""
+        if self.debug_context and self.debug_context.enabled:
+            print(f"🔍 Selector attempts:")
+            for selector in selectors:
+                if selector == successful_selector:
+                    print(f"  ✅ {selector} -> {elements_found} elements")
+                else:
+                    print(f"  ❌ {selector} -> 0 elements")
+
+    def _debug_log_parsing_attempt(self, description: str, success: bool, details: str = "") -> None:
+        """Log parsing attempts with success/failure status."""
+        if self.debug_context and self.debug_context.enabled:
+            status = "✅" if success else "❌"
+            print(f"{status} {description}" + (f": {details}" if details else ""))
 
     def close(self) -> None:
         """Close the session if needed."""

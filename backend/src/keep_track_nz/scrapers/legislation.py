@@ -113,9 +113,10 @@ class LegislationScraper(BaseScraper):
             # Parse the content for metadata
             metadata = self._parse_content_metadata(content)
 
-            # Extract year and number from content or URL
+            # Extract year, number, and version from content or URL
             year = metadata.get('year', self._extract_year_from_url(url))
             number = metadata.get('number', self._extract_number_from_url(url))
+            version = metadata.get('version', self._extract_version_from_url(url))
 
             # Generate act number string
             act_number = f"{year} No {number}" if year and number else ''
@@ -136,7 +137,7 @@ class LegislationScraper(BaseScraper):
                 'date': date_str,
                 'published': published,
                 'current_as_at': metadata.get('current_as_at'),
-                'version': metadata.get('version'),
+                'version': version,  # Use the extracted version from URL or metadata
                 'last_scraped': datetime.now().isoformat(),
             }
 
@@ -179,6 +180,21 @@ class LegislationScraper(BaseScraper):
         if match:
             return str(int(match.group(1)))  # Remove leading zeros
         return ''
+
+    def _extract_version_from_url(self, url: str) -> str:
+        """Extract version from URL path like /202.0/contents.html or /199.0/latest/..."""
+        # Look for version pattern like /202.0/ in URL
+        match = re.search(r'/(\d+)\.0/', url)
+        if match:
+            return match.group(1)
+
+        # Look for other version patterns
+        match = re.search(r'/version/(\d+)', url)
+        if match:
+            return match.group(1)
+
+        # Default to version 1 if no version found
+        return "1"
 
     def _extract_primary_entity(self, title: str) -> str:
         """Extract primary entity from act title based on policy area."""
@@ -272,13 +288,39 @@ class LegislationScraper(BaseScraper):
 
         return None
 
+    def _clean_version(self, version_str: str) -> str:
+        """Clean version string to extract numeric version."""
+        if not version_str:
+            return "1"
+
+        # Try to extract numeric version from various formats
+        # "as at 27 November 2025" -> "1"
+        # "as enacted" -> "1"
+        # "202.0" -> "202"
+        # "version 5" -> "5"
+
+        # Look for numeric patterns
+        numeric_match = re.search(r'(\d+)\.?\d*', version_str)
+        if numeric_match:
+            return numeric_match.group(1)
+
+        # Default to version 1
+        return "1"
+
     def create_government_action(self, raw_data: Dict[str, Any]) -> GovernmentAction:
         """Convert raw Legislation data to GovernmentAction."""
         try:
-            # Generate ID
+            # Generate version-aware ID
             year = raw_data.get('year', str(datetime.now().year))
             number = raw_data.get('number', '000')
-            action_id = f"leg-{year}-{str(number).zfill(3)}"
+            raw_version = raw_data.get('version', '1')
+            version = self._clean_version(raw_version)
+
+            # Generate base ID
+            base_id = f"leg-{year}-{str(number).zfill(3)}"
+
+            # Generate full ID with version
+            action_id = f"{base_id}-v{version}"
 
             # Use the scraped date
             date_str = raw_data.get('date') or datetime.now().strftime('%Y-%m-%d')
@@ -288,10 +330,11 @@ class LegislationScraper(BaseScraper):
             if commencement_date:
                 commencement_date = self._normalize_commencement_date(commencement_date)
 
-            # Create metadata
+            # Create metadata with version information
             metadata = ActionMetadata(
                 act_number=raw_data.get('act_number'),
-                commencement_date=commencement_date
+                commencement_date=commencement_date,
+                version=version
             )
 
             # Create the action
@@ -302,9 +345,11 @@ class LegislationScraper(BaseScraper):
                 source_system=SourceSystem.LEGISLATION,
                 url=raw_data['url'],
                 primary_entity=raw_data.get('primary_entity', 'Parliament'),
-                summary=raw_data.get('version', ''),  # Use version info as summary
+                summary=f"Version {version} of {raw_data['title']}",  # Better summary than just version
                 labels=[],  # Will be filled by label processor
-                metadata=metadata
+                metadata=metadata,
+                version=version,
+                base_id=base_id
             )
 
         except Exception as e:

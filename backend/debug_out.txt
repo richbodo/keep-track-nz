@@ -1,0 +1,1595 @@
+
+====================
+  SCRAPING PROCESS
+====================
+
+🔍 Scraping PARLIAMENT...
+❌ Parliament API access: Attempting API first
+🌐 Making request to: https://bills.parliament.nz/api/bills?limit=50
+❌ API URL https://bills.parliament.nz/api/bills?limit=50: 404 Client Error: Not Found for url: https://bills.parliament.nz/api/bills?limit=50
+🌐 Making request to: https://bills.parliament.nz/api/bills
+❌ API URL https://bills.parliament.nz/api/bills: 404 Client Error: Not Found for url: https://bills.parliament.nz/api/bills
+❌ Parliament API: API failed, trying HTML
+🌐 Making request to: https://bills.parliament.nz/bills-proposed-laws?lang=en
+✅ Response: 200 | Content-Type: text/html; charset=utf-8 | Size: 11084 bytes
+📄 HTML Sample: <!DOCTYPE html> <html lang="en" class="h-100"><head><meta charset="utf-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0">          <base href="/">          <meta property="og:description" content="House">     <meta property="og:image" content="http://www.parliament.nz/media/1850/web-improved-parlt-hse-and-beehive.png?anchor=center&mode=crop&width=1200&height=630&rnd=131389039770000000">          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-...
+🔍 Selector attempts:
+  ❌ table tbody tr -> 0 elements
+  ❌ .bill-item -> 0 elements
+  ❌ .bill-card -> 0 elements
+  ❌ .search-result -> 0 elements
+  ❌ [data-bill-id] -> 0 elements
+  ❌ article -> 0 elements
+  ❌ .legislation-item -> 0 elements
+  ❌ .datatable tbody tr -> 0 elements
+  ❌ tbody tr -> 0 elements
+❌ HTML bill extraction: No bill elements found with any selector
+🌐 Making request to: https://bills.parliament.nz/bills-proposed-laws?lang=en
+✅ Response: 200 | Content-Type: text/html; charset=utf-8 | Size: 11084 bytes
+📄 HTML Sample: <!DOCTYPE html> <html lang="en" class="h-100"><head><meta charset="utf-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0">          <base href="/">          <meta property="og:description" content="House">     <meta property="og:image" content="http://www.parliament.nz/media/1850/web-improved-parlt-hse-and-beehive.png?anchor=center&mode=crop&width=1200&height=630&rnd=131389039770000000">          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-...
+🔍 Selector attempts:
+  ❌ table tbody tr -> 0 elements
+  ❌ .bill-item -> 0 elements
+  ❌ .bill-card -> 0 elements
+  ❌ .search-result -> 0 elements
+  ❌ [data-bill-id] -> 0 elements
+  ❌ article -> 0 elements
+  ❌ .legislation-item -> 0 elements
+  ❌ .datatable tbody tr -> 0 elements
+  ❌ tbody tr -> 0 elements
+❌ HTML bill extraction: No bill elements found with any selector
+🌐 Making request to: https://bills.parliament.nz/bills-proposed-laws
+✅ Response: 200 | Content-Type: text/html; charset=utf-8 | Size: 11084 bytes
+📄 HTML Sample: <!DOCTYPE html> <html lang="en" class="h-100"><head><meta charset="utf-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0">          <base href="/">          <meta property="og:description" content="House">     <meta property="og:image" content="http://www.parliament.nz/media/1850/web-improved-parlt-hse-and-beehive.png?anchor=center&mode=crop&width=1200&height=630&rnd=131389039770000000">          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-...
+🔍 Selector attempts:
+  ❌ table tbody tr -> 0 elements
+  ❌ .bill-item -> 0 elements
+  ❌ .bill-card -> 0 elements
+  ❌ .search-result -> 0 elements
+  ❌ [data-bill-id] -> 0 elements
+  ❌ article -> 0 elements
+  ❌ .legislation-item -> 0 elements
+  ❌ .datatable tbody tr -> 0 elements
+  ❌ tbody tr -> 0 elements
+❌ HTML bill extraction: No bill elements found with any selector
+❌ Parliament scraping: All methods failed
+
+✅ PARLIAMENT scraping complete: 0 items collected
+
+🔍 Scraping LEGISLATION...
+🌐 Making request to: https://www.legislation.govt.nz/subscribe/nzpco-rss.xml
+✅ Response: 200 | Content-Type: application/xml; charset=utf-8 | Size: 243656 bytes
+📄 HTML Sample: <?xml version="1.0" encoding="utf-8"?><feed xml:lang="en-NZ" xmlns="http://www.w3.org/2005/Atom"><title type="text">New Zealand Legislation</title><subtitle type="text">New Zealand Parliamentary Counsel Office publishes Acts, Bills, secondary legislation and Amendment Papers</subtitle><id>https://www.legislation.govt.nz/</id><rights type="text">No copyright</rights><updated>2025-12-17T17:06:10+13:00</updated><category term="legislation" /><author><name>Parliamentary Counsel Office</name><uri>htt...
+
+[001] LEGISLATION | Residential Tenancies Amendment Act 2024
+     Title: Residential Tenancies Amendment Act 2024
+     First sentence: [No content]
+     Date: 2025-12-17
+     URL: https://www.legislation.govt.nz/act/public/2024/0052/26.0/contents.html
+
+[002] LEGISLATION | Local Government Act 2002
+     Title: Local Government Act 2002
+     First sentence: [No content]
+     Date: 2025-12-17
+     URL: https://www.legislation.govt.nz/act/public/2002/0084/344.0/contents.html
+
+[003] LEGISLATION | Search and Surveillance Act 2012
+     Title: Search and Surveillance Act 2012
+     First sentence: [No content]
+     Date: 2025-12-17
+     URL: https://www.legislation.govt.nz/act/public/2012/0024/318.0/contents.html
+
+[004] LEGISLATION | Water Services Act 2021
+     Title: Water Services Act 2021
+     First sentence: [No content]
+     Date: 2025-12-17
+     URL: https://www.legislation.govt.nz/act/public/2021/0036/74.0/contents.html
+
+[005] LEGISLATION | Animal Welfare (Regulations for Management of Pigs) Amendment Act 2025
+     Title: Animal Welfare (Regulations for Management of Pigs) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-12-17
+     URL: https://www.legislation.govt.nz/act/public/2025/0079/27.0/contents.html
+
+[006] LEGISLATION | Climate Change Response (2050 Target and Other Matters) Amendment Act 2025
+     Title: Climate Change Response (2050 Target and Other Matters) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-12-17
+     URL: https://www.legislation.govt.nz/act/public/2025/0080/10.0/contents.html
+
+[007] LEGISLATION | Resource Management (Duration of Consents) Amendment Act 2025
+     Title: Resource Management (Duration of Consents) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-12-17
+     URL: https://www.legislation.govt.nz/act/public/2025/0077/15.0/contents.html
+
+[008] LEGISLATION | Fast-track Approvals Amendment Act 2025
+     Title: Fast-track Approvals Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-12-17
+     URL: https://www.legislation.govt.nz/act/public/2025/0078/23.0/contents.html
+
+[009] LEGISLATION | Wages Protection Act 1983
+     Title: Wages Protection Act 1983
+     First sentence: [No content]
+     Date: 2025-12-17
+     URL: https://www.legislation.govt.nz/act/public/1983/0143/25.0/contents.html
+
+[010] LEGISLATION | Inquiries Act 2013
+     Title: Inquiries Act 2013
+     First sentence: [No content]
+     Date: 2025-12-17
+     URL: https://www.legislation.govt.nz/act/public/2013/0060/69.0/contents.html
+
+[011] LEGISLATION | Legal Services Act 2011
+     Title: Legal Services Act 2011
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/2011/0004/141.0/contents.html
+
+[012] LEGISLATION | Ngāti Rangi Claims Settlement Act 2019
+     Title: Ngāti Rangi Claims Settlement Act 2019
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/2019/0040/46.0/contents.html
+
+[013] LEGISLATION | New Zealand Geographic Board (Ngā Pou Taunaha o Aotearoa) Act 2008
+     Title: New Zealand Geographic Board (Ngā Pou Taunaha o Aotearoa) Act 2008
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/2008/0030/36.0/contents.html
+
+[014] LEGISLATION | Wildlife Act 1953
+     Title: Wildlife Act 1953
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/1953/0031/99.0/contents.html
+
+[015] LEGISLATION | Real Estate Agents Act 2008
+     Title: Real Estate Agents Act 2008
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/2008/0066/100.0/contents.html
+
+[016] LEGISLATION | Secondhand Dealers and Pawnbrokers Act 2004
+     Title: Secondhand Dealers and Pawnbrokers Act 2004
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/2004/0070/40.0/contents.html
+
+[017] LEGISLATION | Motor Vehicle Sales Act 2003
+     Title: Motor Vehicle Sales Act 2003
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/2003/0012/97.0/contents.html
+
+[018] LEGISLATION | Taxation Review Authorities Act 1994
+     Title: Taxation Review Authorities Act 1994
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/1994/0165/49.0/contents.html
+
+[019] LEGISLATION | Serious Fraud Office Act 1990
+     Title: Serious Fraud Office Act 1990
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/1990/0051/37.0/contents.html
+
+[020] LEGISLATION | Maritime Transport Act 1994
+     Title: Maritime Transport Act 1994
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/1994/0104/138.0/contents.html
+
+[021] LEGISLATION | Public Service Act 2020
+     Title: Public Service Act 2020
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/2020/0040/138.0/contents.html
+
+[022] LEGISLATION | Land Transfer Act 2017
+     Title: Land Transfer Act 2017
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/2017/0030/86.0/contents.html
+
+[023] LEGISLATION | Local Government (Rating) Act 2002
+     Title: Local Government (Rating) Act 2002
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/2002/0006/100.0/contents.html
+
+[024] LEGISLATION | Oaths and Declarations Act 1957
+     Title: Oaths and Declarations Act 1957
+     First sentence: [No content]
+     Date: 2025-12-16
+     URL: https://www.legislation.govt.nz/act/public/1957/0088/49.0/contents.html
+
+[025] LEGISLATION | Juries Act 1981
+     Title: Juries Act 1981
+     First sentence: [No content]
+     Date: 2025-12-15
+     URL: https://www.legislation.govt.nz/act/public/1981/0023/78.0/contents.html
+
+[026] LEGISLATION | Incorporated Societies Act 2022
+     Title: Incorporated Societies Act 2022
+     First sentence: [No content]
+     Date: 2025-12-15
+     URL: https://www.legislation.govt.nz/act/public/2022/0012/43.0/contents.html
+
+[027] LEGISLATION | Search and Surveillance Act 2012
+     Title: Search and Surveillance Act 2012
+     First sentence: [No content]
+     Date: 2025-12-15
+     URL: https://www.legislation.govt.nz/act/public/2012/0024/315.0/contents.html
+
+[028] LEGISLATION | Conservation Amendment Act 1996
+     Title: Conservation Amendment Act 1996
+     First sentence: [No content]
+     Date: 2025-12-15
+     URL: https://www.legislation.govt.nz/act/public/1996/0001/4.0/contents.html
+
+[029] LEGISLATION | Privacy Act 2020
+     Title: Privacy Act 2020
+     First sentence: [No content]
+     Date: 2025-12-15
+     URL: https://www.legislation.govt.nz/act/public/2020/0031/202.0/contents.html
+
+[030] LEGISLATION | Ombudsmen Act 1975
+     Title: Ombudsmen Act 1975
+     First sentence: [No content]
+     Date: 2025-12-15
+     URL: https://www.legislation.govt.nz/act/public/1975/0009/396.0/contents.html
+
+[031] LEGISLATION | Housing Act 1955
+     Title: Housing Act 1955
+     First sentence: [No content]
+     Date: 2025-12-12
+     URL: https://www.legislation.govt.nz/act/public/1955/0051/40.0/contents.html
+
+[032] LEGISLATION | Immigration Advisers Licensing Act 2007
+     Title: Immigration Advisers Licensing Act 2007
+     First sentence: [No content]
+     Date: 2025-12-12
+     URL: https://www.legislation.govt.nz/act/public/2007/0015/64.0/contents.html
+
+[033] LEGISLATION | Heretaunga Tamatea Claims Settlement Act 2018
+     Title: Heretaunga Tamatea Claims Settlement Act 2018
+     First sentence: [No content]
+     Date: 2025-12-12
+     URL: https://www.legislation.govt.nz/act/public/2018/0014/42.0/contents.html
+
+[034] LEGISLATION | Immigration (Fiscal Sustainability and System Integrity) Amendment Act 2025
+     Title: Immigration (Fiscal Sustainability and System Integrity) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-12-12
+     URL: https://www.legislation.govt.nz/act/public/2025/0075/44.0/contents.html
+
+[035] LEGISLATION | Defence Act 1990
+     Title: Defence Act 1990
+     First sentence: [No content]
+     Date: 2025-12-12
+     URL: https://www.legislation.govt.nz/act/public/1990/0028/67.0/contents.html
+
+[036] LEGISLATION | Crown Entities Act 2004
+     Title: Crown Entities Act 2004
+     First sentence: [No content]
+     Date: 2025-12-12
+     URL: https://www.legislation.govt.nz/act/public/2004/0115/228.0/contents.html
+
+[037] LEGISLATION | Income Tax Act 2007
+     Title: Income Tax Act 2007
+     First sentence: [No content]
+     Date: 2025-12-12
+     URL: https://www.legislation.govt.nz/act/public/2007/0097/858.0/contents.html
+
+[038] LEGISLATION | Conservation Act 1987
+     Title: Conservation Act 1987
+     First sentence: [No content]
+     Date: 2025-12-12
+     URL: https://www.legislation.govt.nz/act/public/1987/0065/148.0/contents.html
+
+[039] LEGISLATION | Electoral Act 1993
+     Title: Electoral Act 1993
+     First sentence: [No content]
+     Date: 2025-12-12
+     URL: https://www.legislation.govt.nz/act/public/1993/0087/232.0/contents.html
+
+[040] LEGISLATION | Building Act 2004
+     Title: Building Act 2004
+     First sentence: [No content]
+     Date: 2025-12-11
+     URL: https://www.legislation.govt.nz/act/public/2004/0072/225.0/contents.html
+
+[041] LEGISLATION | Radiocommunications Act 1989
+     Title: Radiocommunications Act 1989
+     First sentence: [No content]
+     Date: 2025-12-11
+     URL: https://www.legislation.govt.nz/act/public/1989/0148/64.0/contents.html
+
+[042] LEGISLATION | Venture Capital Fund Act 2019
+     Title: Venture Capital Fund Act 2019
+     First sentence: [No content]
+     Date: 2025-12-11
+     URL: https://www.legislation.govt.nz/act/public/2019/0076/24.0/contents.html
+
+[043] LEGISLATION | Responding to Abuse in Care Legislation Amendment Act 2025
+     Title: Responding to Abuse in Care Legislation Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-12-11
+     URL: https://www.legislation.govt.nz/act/public/2025/0057/29.0/contents.html
+
+[044] LEGISLATION | Coroners Act 2006
+     Title: Coroners Act 2006
+     First sentence: [No content]
+     Date: 2025-12-11
+     URL: https://www.legislation.govt.nz/act/public/2006/0038/143.0/contents.html
+
+[045] LEGISLATION | Armed Forces Discipline Act 1971
+     Title: Armed Forces Discipline Act 1971
+     First sentence: [No content]
+     Date: 2025-12-11
+     URL: https://www.legislation.govt.nz/act/public/1971/0053/70.0/contents.html
+
+[046] LEGISLATION | Reserve Bank of New Zealand Act 2021
+     Title: Reserve Bank of New Zealand Act 2021
+     First sentence: [No content]
+     Date: 2025-12-11
+     URL: https://www.legislation.govt.nz/act/public/2021/0031/53.0/contents.html
+
+[047] LEGISLATION | Criminal Investigations (Bodily Samples) Act 1995
+     Title: Criminal Investigations (Bodily Samples) Act 1995
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/1995/0055/108.0/contents.html
+
+[048] LEGISLATION | Oranga Tamariki Act 1989
+     Title: Oranga Tamariki Act 1989
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/1989/0024/202.0/contents.html
+
+[049] LEGISLATION | Criminal Records (Clean Slate) Act 2004
+     Title: Criminal Records (Clean Slate) Act 2004
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/2004/0036/61.0/contents.html
+
+[050] LEGISLATION | Credit Contracts and Consumer Finance Act 2003
+     Title: Credit Contracts and Consumer Finance Act 2003
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/2003/0052/103.0/contents.html
+
+[051] LEGISLATION | Burial and Cremation Act 1964
+     Title: Burial and Cremation Act 1964
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/1964/0075/70.0/contents.html
+
+[052] LEGISLATION | Summary Offences Act 1981
+     Title: Summary Offences Act 1981
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/1981/0113/52.0/contents.html
+
+[053] LEGISLATION | Takeovers Act 1993
+     Title: Takeovers Act 1993
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/1993/0107/70.0/contents.html
+
+[054] LEGISLATION | Court Martial Act 2007
+     Title: Court Martial Act 2007
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/2007/0101/53.0/contents.html
+
+[055] LEGISLATION | Judicial Conduct Commissioner and Judicial Conduct Panel Act 2004
+     Title: Judicial Conduct Commissioner and Judicial Conduct Panel Act 2004
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/2004/0038/46.0/contents.html
+
+[056] LEGISLATION | Intelligence and Security Act 2017
+     Title: Intelligence and Security Act 2017
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/2017/0010/94.0/contents.html
+
+[057] LEGISLATION | Inspector-General of Defence Act 2023
+     Title: Inspector-General of Defence Act 2023
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/2023/0042/41.0/contents.html
+
+[058] LEGISLATION | Human Rights Act 1993
+     Title: Human Rights Act 1993
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/1993/0082/112.0/contents.html
+
+[059] LEGISLATION | Health and Disability Commissioner Act 1994
+     Title: Health and Disability Commissioner Act 1994
+     First sentence: [No content]
+     Date: 2025-12-10
+     URL: https://www.legislation.govt.nz/act/public/1994/0088/85.0/contents.html
+
+[060] LEGISLATION | Independent Police Conduct Authority Act 1988
+     Title: Independent Police Conduct Authority Act 1988
+     First sentence: [No content]
+     Date: 2025-12-09
+     URL: https://www.legislation.govt.nz/act/public/1988/0002/34.0/contents.html
+
+[061] LEGISLATION | Financial Markets Authority Act 2011
+     Title: Financial Markets Authority Act 2011
+     First sentence: [No content]
+     Date: 2025-12-09
+     URL: https://www.legislation.govt.nz/act/public/2011/0005/121.0/contents.html
+
+[062] LEGISLATION | Fair Trading Act 1986
+     Title: Fair Trading Act 1986
+     First sentence: [No content]
+     Date: 2025-12-09
+     URL: https://www.legislation.govt.nz/act/public/1986/0121/106.0/contents.html
+
+[063] LEGISLATION | Environment Act 1986
+     Title: Environment Act 1986
+     First sentence: [No content]
+     Date: 2025-12-09
+     URL: https://www.legislation.govt.nz/act/public/1986/0127/43.0/contents.html
+
+[064] LEGISLATION | Misuse of Drugs Act 1975
+     Title: Misuse of Drugs Act 1975
+     First sentence: [No content]
+     Date: 2025-12-09
+     URL: https://www.legislation.govt.nz/act/public/1975/0116/139.0/contents.html
+
+[065] LEGISLATION | Criminal Procedure Act 2011
+     Title: Criminal Procedure Act 2011
+     First sentence: [No content]
+     Date: 2025-12-09
+     URL: https://www.legislation.govt.nz/act/public/2011/0081/225.0/contents.html
+
+[066] LEGISLATION | Commerce Act 1986
+     Title: Commerce Act 1986
+     First sentence: [No content]
+     Date: 2025-12-09
+     URL: https://www.legislation.govt.nz/act/public/1986/0005/206.0/contents.html
+
+[067] LEGISLATION | Education and Training Act 2020
+     Title: Education and Training Act 2020
+     First sentence: [No content]
+     Date: 2025-12-08
+     URL: https://www.legislation.govt.nz/act/public/2020/0038/165.0/contents.html
+
+[068] LEGISLATION | Public Finance Act 1989
+     Title: Public Finance Act 1989
+     First sentence: [No content]
+     Date: 2025-12-08
+     URL: https://www.legislation.govt.nz/act/public/1989/0044/288.0/contents.html
+
+[069] LEGISLATION | Defence (Workforce) Amendment Act 2025
+     Title: Defence (Workforce) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-12-05
+     URL: https://www.legislation.govt.nz/act/public/2025/0069/20.0/contents.html
+
+[070] LEGISLATION | Births, Deaths, Marriages, and Relationships Registration Act 2021
+     Title: Births, Deaths, Marriages, and Relationships Registration Act 2021
+     First sentence: [No content]
+     Date: 2025-12-05
+     URL: https://www.legislation.govt.nz/act/public/2021/0057/64.0/contents.html
+
+[071] LEGISLATION | Crimes Act 1961
+     Title: Crimes Act 1961
+     First sentence: [No content]
+     Date: 2025-12-05
+     URL: https://www.legislation.govt.nz/act/public/1961/0043/203.0/contents.html
+
+[072] LEGISLATION | Bail Act 2000
+     Title: Bail Act 2000
+     First sentence: [No content]
+     Date: 2025-12-05
+     URL: https://www.legislation.govt.nz/act/public/2000/0038/95.0/contents.html
+
+[073] LEGISLATION | Children’s Commissioner Act 2022
+     Title: Children’s Commissioner Act 2022
+     First sentence: [No content]
+     Date: 2025-12-05
+     URL: https://www.legislation.govt.nz/act/public/2022/0044/26.0/contents.html
+
+[074] LEGISLATION | Climate Change Response Act 2002
+     Title: Climate Change Response Act 2002
+     First sentence: [No content]
+     Date: 2025-12-04
+     URL: https://www.legislation.govt.nz/act/public/2002/0040/196.0/contents.html
+
+[075] LEGISLATION | Anti-Money Laundering and Countering Financing of Terrorism Act 2009
+     Title: Anti-Money Laundering and Countering Financing of Terrorism Act 2009
+     First sentence: [No content]
+     Date: 2025-12-04
+     URL: https://www.legislation.govt.nz/act/public/2009/0035/167.0/contents.html
+
+[076] LEGISLATION | Accident Compensation Act 2001
+     Title: Accident Compensation Act 2001
+     First sentence: [No content]
+     Date: 2025-12-04
+     URL: https://www.legislation.govt.nz/act/public/2001/0049/237.0/contents.html
+
+[077] LEGISLATION | Regulatory Systems (Economic Development) Amendment Act 2025
+     Title: Regulatory Systems (Economic Development) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-12-04
+     URL: https://www.legislation.govt.nz/act/public/2025/0011/52.0/contents.html
+
+[078] LEGISLATION | Medicines Act 1981
+     Title: Medicines Act 1981
+     First sentence: [No content]
+     Date: 2025-12-03
+     URL: https://www.legislation.govt.nz/act/public/1981/0118/121.0/contents.html
+
+[079] LEGISLATION | Fast-track Approvals Act 2024
+     Title: Fast-track Approvals Act 2024
+     First sentence: [No content]
+     Date: 2025-12-03
+     URL: https://www.legislation.govt.nz/act/public/2024/0056/84.0/contents.html
+
+[080] LEGISLATION | Education and Training (Vocational Education and Training System) Amendment Act 2025
+     Title: Education and Training (Vocational Education and Training System) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/2025/0056/36.0/contents.html
+
+[081] LEGISLATION | Members of Parliament (Remuneration and Services) Act 2013
+     Title: Members of Parliament (Remuneration and Services) Act 2013
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/2013/0093/54.0/contents.html
+
+[082] LEGISLATION | Medicines Amendment Act 2025
+     Title: Medicines Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/2025/0066/20.0/contents.html
+
+[083] LEGISLATION | Disputes Tribunal Amendment Act 2025
+     Title: Disputes Tribunal Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/2025/0060/20.0/contents.html
+
+[084] LEGISLATION | Parliamentary Service Act 2000
+     Title: Parliamentary Service Act 2000
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/2000/0017/45.0/contents.html
+
+[085] LEGISLATION | Parliamentary Service Amendment Act 2010
+     Title: Parliamentary Service Amendment Act 2010
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/2010/0138/20.0/contents.html
+
+[086] LEGISLATION | Crown Minerals Act 1991
+     Title: Crown Minerals Act 1991
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/1991/0070/132.0/contents.html
+
+[087] LEGISLATION | Parliamentary Service Amendment Act 2008
+     Title: Parliamentary Service Amendment Act 2008
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/2008/0057/21.0/contents.html
+
+[088] LEGISLATION | Hauraki Gulf Marine Park Act 2000
+     Title: Hauraki Gulf Marine Park Act 2000
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/2000/0001/56.0/contents.html
+
+[089] LEGISLATION | Reserves and Other Lands Disposal Act 1970
+     Title: Reserves and Other Lands Disposal Act 1970
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/1970/0121/7.0/contents.html
+
+[090] LEGISLATION | Resource Management Act 1991
+     Title: Resource Management Act 1991
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/1991/0069/391.0/contents.html
+
+[091] LEGISLATION | Government Superannuation Fund Act 1956
+     Title: Government Superannuation Fund Act 1956
+     First sentence: [No content]
+     Date: 2025-12-02
+     URL: https://www.legislation.govt.nz/act/public/1956/0047/117.0/contents.html
+
+[092] LEGISLATION | Fire and Emergency New Zealand Act 2017
+     Title: Fire and Emergency New Zealand Act 2017
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/2017/0017/121.0/contents.html
+
+[093] LEGISLATION | Point England Development Enabling Act 2017
+     Title: Point England Development Enabling Act 2017
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/2017/0028/25.0/contents.html
+
+[094] LEGISLATION | Legislation Act 2019
+     Title: Legislation Act 2019
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/2019/0058/117.0/contents.html
+
+[095] LEGISLATION | Remuneration Authority Act 1977
+     Title: Remuneration Authority Act 1977
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/1977/0110/124.0/contents.html
+
+[096] LEGISLATION | Intelligence and Security Act 2017
+     Title: Intelligence and Security Act 2017
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/2017/0010/91.0/contents.html
+
+[097] LEGISLATION | Employment Relations Act 2000
+     Title: Employment Relations Act 2000
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/2000/0024/232.0/contents.html
+
+[098] LEGISLATION | Financial Reporting Act 2013
+     Title: Financial Reporting Act 2013
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/2013/0101/67.0/contents.html
+
+[099] LEGISLATION | Epidemic Preparedness Act 2006
+     Title: Epidemic Preparedness Act 2006
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/2006/0085/45.0/contents.html
+
+[100] LEGISLATION | Films, Videos, and Publications Classification Act 1993
+     Title: Films, Videos, and Publications Classification Act 1993
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/1993/0094/107.0/contents.html
+
+[101] LEGISLATION | Defamation Act 1992
+     Title: Defamation Act 1992
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/1992/0105/31.0/contents.html
+
+[102] LEGISLATION | Clerk of the House of Representatives Act 1988
+     Title: Clerk of the House of Representatives Act 1988
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/1988/0126/15.0/contents.html
+
+[103] LEGISLATION | Electoral Act 1993
+     Title: Electoral Act 1993
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/1993/0087/229.0/contents.html
+
+[104] LEGISLATION | Gangs Act 2024
+     Title: Gangs Act 2024
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/2024/0036/39.0/contents.html
+
+[105] LEGISLATION | Crown Organisations (Criminal Liability) Act 2002
+     Title: Crown Organisations (Criminal Liability) Act 2002
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/2002/0037/55.0/contents.html
+
+[106] LEGISLATION | Public Audit Act 2001
+     Title: Public Audit Act 2001
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/2001/0010/139.0/contents.html
+
+[107] LEGISLATION | Copyright Act 1994
+     Title: Copyright Act 1994
+     First sentence: [No content]
+     Date: 2025-12-01
+     URL: https://www.legislation.govt.nz/act/public/1994/0143/153.0/contents.html
+
+[108] LEGISLATION | Parliamentary Privilege Act 2014
+     Title: Parliamentary Privilege Act 2014
+     First sentence: [No content]
+     Date: 2025-11-28
+     URL: https://www.legislation.govt.nz/act/public/2014/0058/27.0/contents.html
+
+[109] LEGISLATION | Health Act 1956
+     Title: Health Act 1956
+     First sentence: [No content]
+     Date: 2025-11-28
+     URL: https://www.legislation.govt.nz/act/public/1956/0065/226.0/contents.html
+
+[110] LEGISLATION | Legal Services (Distribution of Special Fund) Amendment Act 2025
+     Title: Legal Services (Distribution of Special Fund) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-28
+     URL: https://www.legislation.govt.nz/act/public/2025/0076/18.0/contents.html
+
+[111] LEGISLATION | Goods and Services Tax Act 1985
+     Title: Goods and Services Tax Act 1985
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/1985/0141/282.0/contents.html
+
+[112] LEGISLATION | Imperial Laws Application Act 1988
+     Title: Imperial Laws Application Act 1988
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/1988/0112/31.0/contents.html
+
+[113] LEGISLATION | Statutes Amendment Act 2025
+     Title: Statutes Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/2025/0074/17.0/contents.html
+
+[114] LEGISLATION | Legislative Council Abolition Act 1950
+     Title: Legislative Council Abolition Act 1950
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/1950/0003/7.0/contents.html
+
+[115] LEGISLATION | Treaty of Waitangi Act 1975
+     Title: Treaty of Waitangi Act 1975
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/1975/0114/161.0/contents.html
+
+[116] LEGISLATION | Land Transport Management (Time of Use Charging) Amendment Act 2025
+     Title: Land Transport Management (Time of Use Charging) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/2025/0064/24.0/contents.html
+
+[117] LEGISLATION | Auckland Council (Auckland Future Fund) Act 2025
+     Title: Auckland Council (Auckland Future Fund) Act 2025
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/local/2025/0002/20.0/contents.html
+
+[118] LEGISLATION | Education and Training (Early Childhood Education Reform) Amendment Act 2025
+     Title: Education and Training (Early Childhood Education Reform) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/2025/0070/21.0/contents.html
+
+[119] LEGISLATION | Marine and Coastal Area (Takutai Moana) (Customary Marine Title) Amendment Act 2025
+     Title: Marine and Coastal Area (Takutai Moana) (Customary Marine Title) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/2025/0058/23.0/contents.html
+
+[120] LEGISLATION | Land Transport (Clean Vehicle Standard) Amendment Act 2025
+     Title: Land Transport (Clean Vehicle Standard) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/2025/0073/18.0/contents.html
+
+[121] LEGISLATION | Crimes Legislation (Stalking and Harassment) Amendment Act 2025
+     Title: Crimes Legislation (Stalking and Harassment) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/2025/0072/19.0/contents.html
+
+[122] LEGISLATION | Crimes (Countering Foreign Interference) Amendment Act 2025
+     Title: Crimes (Countering Foreign Interference) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/2025/0071/20.0/contents.html
+
+[123] LEGISLATION | Privacy Act 2020
+     Title: Privacy Act 2020
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/2020/0031/199.0/contents.html
+
+[124] LEGISLATION | Social Security Act 2018
+     Title: Social Security Act 2018
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/2018/0032/254.0/contents.html
+
+[125] LEGISLATION | Social Security Act 2018
+     Title: Social Security Act 2018
+     First sentence: [No content]
+     Date: 2025-11-27
+     URL: https://www.legislation.govt.nz/act/public/2018/0032/252.0/contents.html
+
+[126] LEGISLATION | Social Security Act 2018
+     Title: Social Security Act 2018
+     First sentence: [No content]
+     Date: 2025-11-26
+     URL: https://www.legislation.govt.nz/act/public/2018/0032/250.0/contents.html
+
+[127] LEGISLATION | Education and Training Amendment Act 2025
+     Title: Education and Training Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-26
+     URL: https://www.legislation.govt.nz/act/public/2025/0065/39.0/contents.html
+
+[128] LEGISLATION | Adoption Amendment Act 2025
+     Title: Adoption Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-25
+     URL: https://www.legislation.govt.nz/act/public/2025/0049/29.0/contents.html
+
+[129] LEGISLATION | Companies (Address Information) Amendment Act 2025
+     Title: Companies (Address Information) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-21
+     URL: https://www.legislation.govt.nz/act/public/2025/0067/19.0/contents.html
+
+[130] LEGISLATION | Income Tax Act 2007
+     Title: Income Tax Act 2007
+     First sentence: [No content]
+     Date: 2025-11-21
+     URL: https://www.legislation.govt.nz/act/public/2007/0097/855.0/contents.html
+
+[131] LEGISLATION | Receiverships Act 1993
+     Title: Receiverships Act 1993
+     First sentence: [No content]
+     Date: 2025-11-21
+     URL: https://www.legislation.govt.nz/act/public/1993/0122/61.0/contents.html
+
+[132] LEGISLATION | Severe Weather Emergency Recovery Legislation Act 2023
+     Title: Severe Weather Emergency Recovery Legislation Act 2023
+     First sentence: [No content]
+     Date: 2025-11-20
+     URL: https://www.legislation.govt.nz/act/public/2023/0017/41.0/contents.html
+
+[133] LEGISLATION | Social Security Amendment Act 2025
+     Title: Social Security Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-20
+     URL: https://www.legislation.govt.nz/act/public/2025/0025/17.0/contents.html
+
+[134] LEGISLATION | Private Security Personnel and Private Investigators Act 2010
+     Title: Private Security Personnel and Private Investigators Act 2010
+     First sentence: [No content]
+     Date: 2025-11-20
+     URL: https://www.legislation.govt.nz/act/public/2010/0115/70.0/contents.html
+
+[135] LEGISLATION | Heavy Engineering Research Levy Act 1978
+     Title: Heavy Engineering Research Levy Act 1978
+     First sentence: [No content]
+     Date: 2025-11-20
+     URL: https://www.legislation.govt.nz/act/public/1978/0081/37.0/contents.html
+
+[136] LEGISLATION | Medicines Amendment Act 2025
+     Title: Medicines Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-20
+     URL: https://www.legislation.govt.nz/act/public/2025/0066/17.0/contents.html
+
+[137] LEGISLATION | Education and Training Amendment Act 2025
+     Title: Education and Training Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-19
+     URL: https://www.legislation.govt.nz/act/public/2025/0065/36.0/contents.html
+
+[138] LEGISLATION | Land Transport Management (Time of Use Charging) Amendment Act 2025
+     Title: Land Transport Management (Time of Use Charging) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-19
+     URL: https://www.legislation.govt.nz/act/public/2025/0064/21.0/contents.html
+
+[139] LEGISLATION | Companies (Address Information) Amendment Act 2025
+     Title: Companies (Address Information) Amendment Act 2025
+     First sentence: [No content]
+     Date: 2025-11-19
+     URL: https://www.legislation.govt.nz/act/public/2025/0067/16.0/contents.html
+
+[140] LEGISLATION | Auckland Council (Auckland Future Fund) Act 2025
+     Title: Auckland Council (Auckland Future Fund) Act 2025
+     First sentence: [No content]
+     Date: 2025-11-18
+     URL: https://www.legislation.govt.nz/act/local/2025/0002/17.0/contents.html
+
+[141] LEGISLATION | Regulatory Standards Act 2025
+     Title: Regulatory Standards Act 2025
+     First sentence: [No content]
+     Date: 2025-11-18
+     URL: https://www.legislation.govt.nz/act/public/2025/0068/17.0/contents.html
+
+[142] LEGISLATION | Ngāti Pāoa Claims Settlement Act 2025
+     Title: Ngāti Pāoa Claims Settlement Act 2025
+     First sentence: [No content]
+     Date: 2025-11-18
+     URL: https://www.legislation.govt.nz/act/public/2025/0061/22.0/contents.html
+
+[143] LEGISLATION | Tax Administration Act 1994
+     Title: Tax Administration Act 1994
+     First sentence: [No content]
+     Date: 2025-11-18
+     URL: https://www.legislation.govt.nz/act/public/1994/0166/656.0/contents.html
+
+[144] LEGISLATION | Tax Administration Act 1994
+     Title: Tax Administration Act 1994
+     First sentence: [No content]
+     Date: 2025-11-18
+     URL: https://www.legislation.govt.nz/act/public/1994/0166/654.0/contents.html
+
+[145] LEGISLATION | Tax Administration Act 1994
+     Title: Tax Administration Act 1994
+     First sentence: [No content]
+     Date: 2025-11-18
+     URL: https://www.legislation.govt.nz/act/public/1994/0166/652.0/contents.html
+
+✅ LEGISLATION scraping complete: 145 items collected
+
+🔍 Scraping GAZETTE...
+🌐 Making request to: https://gazette.govt.nz/home/search
+✅ Response: 200 | Content-Type: text/html; charset=UTF-8 | Size: 663633 bytes
+📄 HTML Sample: <!DOCTYPE html> <html     class="bg-gaz-footer-gray font-sans"     lang="en" >     <head>         <meta charset="utf-8" />         <meta             name="viewport"             content="width=device-width, initial-scale=1.0, maximum-scale=1"         />                  <title>Search results | New Zealand Gazette</title>                      <!-- Google Tag Manager -->             <script>                 (function (w, d, s, l, i) {                     w[l] = w[l] || [];                     w[l]....
+
+[146] GAZETTE | Special Direction – Waiver of Prescribed Requirements for Applying for a Visa in Respect of a Class of Persons
+     Title: Special Direction – Waiver of Prescribed Requirements for Applying for a Visa in Respect of a Class of Persons
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7360
+
+[147] GAZETTE | Public Notice of Entry into Possession of Mortgaged Goods
+     Title: Public Notice of Entry into Possession of Mortgaged Goods
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-gn7319
+
+[148] GAZETTE | Public Notice of Entry into Possession of Mortgaged Goods
+     Title: Public Notice of Entry into Possession of Mortgaged Goods
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-gn7320
+
+[149] GAZETTE | Fisheries (Declaration of Te Mātaitai ō Te Hikutū ) Notice 2025 (Notice No. MPI 1972)
+     Title: Fisheries (Declaration of Te Mātaitai ō Te Hikutū ) Notice 2025 (Notice No. MPI 1972)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7343
+
+[150] GAZETTE | Notification of Ordinary Rules
+     Title: Notification of Ordinary Rules
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-au7358
+
+[151] GAZETTE | Appointments to Invest New Zealand
+     Title: Appointments to Invest New Zealand
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7349
+
+[152] GAZETTE | Appointments to the New Zealand Trade and Enterprise Board
+     Title: Appointments to the New Zealand Trade and Enterprise Board
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7348
+
+[153] GAZETTE | Call for the Provision of Electricity Contract Related Information (Aluminium Smelting) Notice 2025
+     Title: Call for the Provision of Electricity Contract Related Information (Aluminium Smelting) Notice 2025
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7191
+
+[154] GAZETTE | Notice Prohibiting Person From Managing Companies
+     Title: Notice Prohibiting Person From Managing Companies
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ot7353
+
+[155] GAZETTE | Call for the Provision of Electricity Contract Related Information (Manufacture of Iron and Steel From Iron Sand) Notice 2025
+     Title: Call for the Provision of Electricity Contract Related Information (Manufacture of Iron and Steel From Iron Sand) Notice 2025
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7192
+
+[156] GAZETTE | Appointment of the Government Statistician and Chief Executive, Statistics New Zealand
+     Title: Appointment of the Government Statistician and Chief Executive, Statistics New Zealand
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7350
+
+[157] GAZETTE | Public Notice of Entry into Possession of Mortgaged Goods
+     Title: Public Notice of Entry into Possession of Mortgaged Goods
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-gn7342
+
+[158] GAZETTE | NORTH FACE CONSTRUCTION 2022 LIMITED (in receivership)
+     Title: NORTH FACE CONSTRUCTION 2022 LIMITED (in receivership)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ar7236
+
+[159] GAZETTE | Notice Under the Legislation Act 2019
+     Title: Notice Under the Legislation Act 2019
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7302
+
+[160] GAZETTE | Establishment of Te Wharekura o Te Waitangi o Hinemuri, Waihi
+     Title: Establishment of Te Wharekura o Te Waitangi o Hinemuri, Waihi
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7196
+
+[161] GAZETTE | Appointments to New Zealand Film Commission
+     Title: Appointments to New Zealand Film Commission
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7367
+
+[162] GAZETTE | Land Acquired for Use in Connection With a Road—Old Highway SH No. 2,   Whakamarama
+     Title: Land Acquired for Use in Connection With a Road—Old Highway SH No. 2,   Whakamarama
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ln7339
+
+[163] GAZETTE | Notice Of Vesting of Property Under Section 324 of the Companies Act 1993—Affinity Dot Net Dot NZ Limited and Other Companies
+     Title: Notice Of Vesting of Property Under Section 324 of the Companies Act 1993—Affinity Dot Net Dot NZ Limited and Other Companies
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7333
+
+[164] GAZETTE | In Bankruptcy
+     Title: In Bankruptcy
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ba7013
+
+[165] GAZETTE | Notice Prohibiting Person From Managing Companies
+     Title: Notice Prohibiting Person From Managing Companies
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ot7265
+
+[166] GAZETTE | CLEARVIEW INSTALLATIONS LIMITED (in receivership)
+     Title: CLEARVIEW INSTALLATIONS LIMITED (in receivership)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ar7354
+
+[167] GAZETTE | Land Acquired for Use in Connection With a Road—State Highway 29, Tauranga
+     Title: Land Acquired for Use in Connection With a Road—State Highway 29, Tauranga
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ln7344
+
+[168] GAZETTE | Appointment of the Secretary for Education and Chief Executive, Ministry of Education
+     Title: Appointment of the Secretary for Education and Chief Executive, Ministry of Education
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7346
+
+[169] GAZETTE | Notice of Vesting of Property Under Section 324 of the Companies Act 1993 – 1 Cart.Com Limited and Other Companies
+     Title: Notice of Vesting of Property Under Section 324 of the Companies Act 1993 – 1 Cart.Com Limited and Other Companies
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7332
+
+[170] GAZETTE | Notice of Vesting of Property Under Section 324 of the Companies Act 1993 – 3666214 Limited and Other Companies
+     Title: Notice of Vesting of Property Under Section 324 of the Companies Act 1993 – 3666214 Limited and Other Companies
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7331
+
+[171] GAZETTE | Advertisement of Application for Putting Company into Liquidation
+     Title: Advertisement of Application for Putting Company into Liquidation
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-aw7277
+
+[172] GAZETTE | Advertisement of Application for Putting Company into Liquidation
+     Title: Advertisement of Application for Putting Company into Liquidation
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-aw7275
+
+[173] GAZETTE | HEART RECRUITMENT LIMITED (trading as Heart Recruitment and Civil Limited ) , 818 SCAFFOLDING LIMITED, GIN GARDEN LIMITED, ASTATEK 2000 LIMITED (trading as Astatek2000 Limited ) , SUNCOURT INDIAN LIMITED (trading as Suncourt Indian ) , CS & SC LIMITED, DRBR LIMITED (trading as EFX Hair & Beauty ) and EFX HAIR & BEAUTY LIMITED (trading as EFX Hair - Hair Care World ) (all in liquidation)
+     Title: HEART RECRUITMENT LIMITED (trading as Heart Recruitment and Civil Limited ) , 818 SCAFFOLDING LIMITED, GIN GARDEN LIMITED, ASTATEK 2000 LIMITED (trading as Astatek2000 Limited ) , SUNCOURT INDIAN LIMITED (trading as Suncourt Indian ) , CS & SC LIMITED, DRBR LIMITED (trading as EFX Hair & Beauty ) and EFX HAIR & BEAUTY LIMITED (trading as EFX Hair - Hair Care World ) (all in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7327
+
+[174] GAZETTE | NAGRA NZ LIMITED (in liquidation)
+     Title: NAGRA NZ LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7323
+
+[175] GAZETTE | Amendment to Notice—Scopes of Practice and Prescribed Qualifications for the Practice of Medicine in New Zealand Notice 2024
+     Title: Amendment to Notice—Scopes of Practice and Prescribed Qualifications for the Practice of Medicine in New Zealand Notice 2024
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7322
+
+[176] GAZETTE | MAYORAL DRIVE TENANCY TRUSTEE LIMITED, ST GEORGES INVESTMENTS LIMITED and GOLD HYDROGEN LIMITED (all in liquidation)
+     Title: MAYORAL DRIVE TENANCY TRUSTEE LIMITED, ST GEORGES INVESTMENTS LIMITED and GOLD HYDROGEN LIMITED (all in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ds7321
+
+[177] GAZETTE | Declaration of Reservation of Land
+     Title: Declaration of Reservation of Land
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7310
+
+[178] GAZETTE | SOUNDHOMES NZ LIMITED (administrators appointed)
+     Title: SOUNDHOMES NZ LIMITED (administrators appointed)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-aa7308
+
+[179] GAZETTE | NEW ZEALAND VACUUM CLEANER COMPANY LIMITED (in liquidation)
+     Title: NEW ZEALAND VACUUM CLEANER COMPANY LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ds7317
+
+[180] GAZETTE | Notice of Vesting of Property Under Section 324 of the Companies Act 1993—14hire Limited and Other Companies
+     Title: Notice of Vesting of Property Under Section 324 of the Companies Act 1993—14hire Limited and Other Companies
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7305
+
+[181] GAZETTE | PRECAST CONSTRUCTION GROUP LIMITED (in liquidation)
+     Title: PRECAST CONSTRUCTION GROUP LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7345
+
+[182] GAZETTE | Advertisement of Application for Putting Company into Liquidation
+     Title: Advertisement of Application for Putting Company into Liquidation
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-aw7273
+
+[183] GAZETTE | Government Policy Statement on Grocery Competition
+     Title: Government Policy Statement on Grocery Competition
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7268
+
+[184] GAZETTE | Notice of Intention to Declare a Major Maritime Event
+     Title: Notice of Intention to Declare a Major Maritime Event
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7197
+
+[185] GAZETTE | Revocation of the Notice of Direction to Appoint a Limited Statutory Manager for the Witherlea School (3075) Board
+     Title: Revocation of the Notice of Direction to Appoint a Limited Statutory Manager for the Witherlea School (3075) Board
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7168
+
+[186] GAZETTE | COOKE FLOORING LIMITED, JAY HOLDING LIMITED, THE MAZE COMPANY LIMITED and B & B GROWER LIMITED (all in liquidation)
+     Title: COOKE FLOORING LIMITED, JAY HOLDING LIMITED, THE MAZE COMPANY LIMITED and B & B GROWER LIMITED (all in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7334
+
+[187] GAZETTE | Appointment / Reappointment to the Ngāti Awa Joint Management Committee / Te Tapatoru ā Toi
+     Title: Appointment / Reappointment to the Ngāti Awa Joint Management Committee / Te Tapatoru ā Toi
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7301
+
+[188] GAZETTE | Termination of Liquidation
+     Title: Termination of Liquidation
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7314
+
+[189] GAZETTE | Appointment of the Secretary for Children and Chief Executive, Oranga Tamariki – Ministry for Children
+     Title: Appointment of the Secretary for Children and Chief Executive, Oranga Tamariki – Ministry for Children
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7249
+
+[190] GAZETTE | Notice of Intention to Take Land for State Highway 1, North Canterbury—Woodend Bypass Project (Belfast to Pegasus), Critical Infrastructure Project in Canterbury Land District
+     Title: Notice of Intention to Take Land for State Highway 1, North Canterbury—Woodend Bypass Project (Belfast to Pegasus), Critical Infrastructure Project in Canterbury Land District
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ln7316
+
+[191] GAZETTE | PUBLISHER PRIME NZ LIMITED, PUBLISHER PRIME NOMINEE LIMITED, PUBLISHER PRIME IP LIMITED, PUBLISHER PRIME LIMITED and  AEON CONSTRUCTION LIMITED  (all in liquidation)
+     Title: PUBLISHER PRIME NZ LIMITED, PUBLISHER PRIME NOMINEE LIMITED, PUBLISHER PRIME IP LIMITED, PUBLISHER PRIME LIMITED and  AEON CONSTRUCTION LIMITED  (all in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7318
+
+[192] GAZETTE | CHANCE VOIGHT INVESTMENT CORPORATION LIMITED, CHANCE VOIGHT INVESTMENT PARTNERS LIMITED, CVI PARTNERS MORTGAGE INCOME FUND LIMITED, CVI SECURITIES LIMITED, CVI PARTNERS MORTGAGE FUND LIMITED and CVI FINANCIAL LIMITED
+     Title: CHANCE VOIGHT INVESTMENT CORPORATION LIMITED, CHANCE VOIGHT INVESTMENT PARTNERS LIMITED, CVI PARTNERS MORTGAGE INCOME FUND LIMITED, CVI SECURITIES LIMITED, CVI PARTNERS MORTGAGE FUND LIMITED and CVI FINANCIAL LIMITED
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7304
+
+[193] GAZETTE | Retention of the Title “The Honourable”
+     Title: Retention of the Title “The Honourable”
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-vr7303
+
+[194] GAZETTE | Establishment of New Zealand Performance Academy Aotearoa as a Charter School
+     Title: Establishment of New Zealand Performance Academy Aotearoa as a Charter School
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7297
+
+[195] GAZETTE | Corrections (Auckland Region Women’s Corrections Facility) Notice 2025
+     Title: Corrections (Auckland Region Women’s Corrections Facility) Notice 2025
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7287
+
+[196] GAZETTE | Declaring Land to be Road—Wren Place, Unsworth Heights, Auckland
+     Title: Declaring Land to be Road—Wren Place, Unsworth Heights, Auckland
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ln7338
+
+[197] GAZETTE | Land Declared Road and Land Set Apart for the Functioning Indirectly of a Road (Segregation Strip)—State Highway 1, Wellington Northern Corridor ( Peka Peka to Otaki Expressway) – 43 Rahui Road, Otaki , Kapiti Coast District
+     Title: Land Declared Road and Land Set Apart for the Functioning Indirectly of a Road (Segregation Strip)—State Highway 1, Wellington Northern Corridor ( Peka Peka to Otaki Expressway) – 43 Rahui Road, Otaki , Kapiti Coast District
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ln7335
+
+[198] GAZETTE | MVP LIMITED and MVP WILLIAMS LIMITED (both in liquidation)
+     Title: MVP LIMITED and MVP WILLIAMS LIMITED (both in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7326
+
+[199] GAZETTE | HSB TRANSPORT LIMITED (in liquidation)
+     Title: HSB TRANSPORT LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7325
+
+[200] GAZETTE | DURABUILD CONSTRUCTION LIMITED (in liquidation)
+     Title: DURABUILD CONSTRUCTION LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7313
+
+[201] GAZETTE | Designation of Auditing Agency
+     Title: Designation of Auditing Agency
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7154
+
+[202] GAZETTE | Advertisement of Application for Putting Company into Liquidation
+     Title: Advertisement of Application for Putting Company into Liquidation
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-aw7209
+
+[203] GAZETTE | Notice of Direction to Appoint a Limited Statutory Manager for the Ko Taku Reo  – Deaf Education New Zealand  (903) School Board
+     Title: Notice of Direction to Appoint a Limited Statutory Manager for the Ko Taku Reo  – Deaf Education New Zealand  (903) School Board
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7251
+
+[204] GAZETTE | Financial Markets Conduct (BGC Partners (Australia) Pty Limited) Exemption Notice 2025
+     Title: Financial Markets Conduct (BGC Partners (Australia) Pty Limited) Exemption Notice 2025
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7284
+
+[205] GAZETTE | Corrections ( Waikeria Prison) Notice 2025
+     Title: Corrections ( Waikeria Prison) Notice 2025
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7288
+
+[206] GAZETTE | Public Notice of Entry into Possession of Mortgaged Land
+     Title: Public Notice of Entry into Possession of Mortgaged Land
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-gn7309
+
+[207] GAZETTE | Corrigendum—Notice of Revocation of Approval of a Community Service
+     Title: Corrigendum—Notice of Revocation of Approval of a Community Service
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7300
+
+[208] GAZETTE | Notification of Amendment to Electricity Distribution Services Default Price-Quality Path Determination 2020 [2019] NZCC 21
+     Title: Notification of Amendment to Electricity Distribution Services Default Price-Quality Path Determination 2020 [2019] NZCC 21
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-au7142
+
+[209] GAZETTE | Notification of Amendment to Electricity Distribution Services Default Price-Quality Path Determination 2020 [2019] NZCC 21
+     Title: Notification of Amendment to Electricity Distribution Services Default Price-Quality Path Determination 2020 [2019] NZCC 21
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-au7138
+
+[210] GAZETTE | Fisheries (High Seas Fishing Notifications—Commission for the Conservation of Southern Bluefin Tuna) Notice 2025
+     Title: Fisheries (High Seas Fishing Notifications—Commission for the Conservation of Southern Bluefin Tuna) Notice 2025
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7247
+
+[211] GAZETTE | Disestablishment of Lottery Distribution Committee
+     Title: Disestablishment of Lottery Distribution Committee
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7222
+
+[212] GAZETTE | Commerce Commission—Notification of Amendment to Electricity Distribution Services Default Price-Quality Path Determination 2020 [2019] NZCC 21
+     Title: Commerce Commission—Notification of Amendment to Electricity Distribution Services Default Price-Quality Path Determination 2020 [2019] NZCC 21
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-au7141
+
+[213] GAZETTE | Revocation of the Notice of Direction to Appoint a Limited Statutory Manager for the Cambridge East School (1700) Board
+     Title: Revocation of the Notice of Direction to Appoint a Limited Statutory Manager for the Cambridge East School (1700) Board
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7225
+
+[214] GAZETTE | New Zealand Transport Agency (Traffic Controls on State Highways) Amendment Bylaw 2025/011
+     Title: New Zealand Transport Agency (Traffic Controls on State Highways) Amendment Bylaw 2025/011
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7293
+
+[215] GAZETTE | Liquidations
+     Title: Liquidations
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7295
+
+[216] GAZETTE | ACCORD EQUIPMENT LIMITED, ACCORD PRECISION LIMITED and APOLLO PRECISION MANUFACTURING LIMITED (administrators appointed)
+     Title: ACCORD EQUIPMENT LIMITED, ACCORD PRECISION LIMITED and APOLLO PRECISION MANUFACTURING LIMITED (administrators appointed)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-md7296
+
+[217] GAZETTE | MOLENAAR HOLDINGS LIMITED (in liquidation)
+     Title: MOLENAAR HOLDINGS LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ds7276
+
+[218] GAZETTE | D & C HILL LIMITED (in liquidation)
+     Title: D & C HILL LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ds7294
+
+[219] GAZETTE | Midwifery Council (Fees) Notice 2026
+     Title: Midwifery Council (Fees) Notice 2026
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7257
+
+[220] GAZETTE | Land Declared No Longer Needed for Education Purposes
+     Title: Land Declared No Longer Needed for Education Purposes
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ln7255
+
+[221] GAZETTE | Fisheries (High Seas Fishing Notifications-Commission for the Conservation of Antarctic Marine Living Resources) Notice 2025
+     Title: Fisheries (High Seas Fishing Notifications-Commission for the Conservation of Antarctic Marine Living Resources) Notice 2025
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7246
+
+[222] GAZETTE | QUEENSWAY TRUSTEE LIMITED, SGBR LIMITED and S J MCKEE LIMITED (all in liquidation)
+     Title: QUEENSWAY TRUSTEE LIMITED, SGBR LIMITED and S J MCKEE LIMITED (all in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7256
+
+[223] GAZETTE | Annual Levy Prescribed Under Commodity Levies (Eggs) Order 2022
+     Title: Annual Levy Prescribed Under Commodity Levies (Eggs) Order 2022
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-gs7181
+
+[224] GAZETTE | ASPAC DAIRY HOLDINGS LIMITED (in receivership)
+     Title: ASPAC DAIRY HOLDINGS LIMITED (in receivership)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ar7272
+
+[225] GAZETTE | ATL 2024 LIMITED, A+ SOFTWARE LIMITED, PRO TECT AUTO LIMITED and PROTECT AUTO AUCKLAND LIMITED (all in liquidation)
+     Title: ATL 2024 LIMITED, A+ SOFTWARE LIMITED, PRO TECT AUTO LIMITED and PROTECT AUTO AUCKLAND LIMITED (all in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7274
+
+[226] GAZETTE | PAPAQ LIMITED (in liquidation)
+     Title: PAPAQ LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7270
+
+[227] GAZETTE | Notification of Rates of Levy for the 2026–2027 Levy Year
+     Title: Notification of Rates of Levy for the 2026–2027 Levy Year
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-gs7250
+
+[228] GAZETTE | SELIG HOLDINGS LIMITED (formerly GILES & ASSOCIATES CHARTERED ACCOUNTANTS LIMITED ) (in liquidation)
+     Title: SELIG HOLDINGS LIMITED (formerly GILES & ASSOCIATES CHARTERED ACCOUNTANTS LIMITED ) (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ds7262
+
+[229] GAZETTE | BUDDLE FINDLAY
+     Title: BUDDLE FINDLAY
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-pn7253
+
+[230] GAZETTE | BUDDLE FINDLAY
+     Title: BUDDLE FINDLAY
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-pn7252
+
+[231] GAZETTE | CHARTWELL SQUARE PHARMACY LIMITED (trading as Life Pharmacy Chartwell ) and PHARMACY MAX LIMITED (both in liquidation)
+     Title: CHARTWELL SQUARE PHARMACY LIMITED (trading as Life Pharmacy Chartwell ) and PHARMACY MAX LIMITED (both in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7244
+
+[232] GAZETTE | Public Notice of Entry into Possession of Mortgaged Goods
+     Title: Public Notice of Entry into Possession of Mortgaged Goods
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-gn7266
+
+[233] GAZETTE | ELF 2016 LIMITED PARTNERSHIP, MAUI CAPITAL AQUA LIMITED PARTNERSHIP, MAUI CAPITAL AQUA GENERAL PARTNER LIMITED, MAUI CAPITAL AQUA FUND LIMITED, MCAF NO. 3 LIMITED and MCAF NO. 5 LIMITED (all in liquidation)
+     Title: ELF 2016 LIMITED PARTNERSHIP, MAUI CAPITAL AQUA LIMITED PARTNERSHIP, MAUI CAPITAL AQUA GENERAL PARTNER LIMITED, MAUI CAPITAL AQUA FUND LIMITED, MCAF NO. 3 LIMITED and MCAF NO. 5 LIMITED (all in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ds7263
+
+[234] GAZETTE | Public Notice of Entry into Possession of Mortgaged Goods
+     Title: Public Notice of Entry into Possession of Mortgaged Goods
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-gn7199
+
+[235] GAZETTE | HENARE DRIVE LIMITED (in liquidation)
+     Title: HENARE DRIVE LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7271
+
+[236] GAZETTE | Recognition as Lead Providers of Secondary–Tertiary Programmes Notice 2025
+     Title: Recognition as Lead Providers of Secondary–Tertiary Programmes Notice 2025
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-go7143
+
+[237] GAZETTE | Land Set Apart for Education Purposes (Former Tahakopa School)—921 Tahakopa Valley Road, Ōwaka
+     Title: Land Set Apart for Education Purposes (Former Tahakopa School)—921 Tahakopa Valley Road, Ōwaka
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ln7258
+
+[238] GAZETTE | Notification of Issue of Animal Product Notice: Production, Supply and Processing (Notice No. MPI 1979)
+     Title: Notification of Issue of Animal Product Notice: Production, Supply and Processing (Notice No. MPI 1979)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-sl7241
+
+[239] GAZETTE | R & S INVESTMENTS 2025 LIMITED (formerly MK3 INVESTMENTS LIMITED ) (in liquidation)
+     Title: R & S INVESTMENTS 2025 LIMITED (formerly MK3 INVESTMENTS LIMITED ) (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7235
+
+[240] GAZETTE | OCEANE HOLDINGS LIMITED (in liquidation)
+     Title: OCEANE HOLDINGS LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7233
+
+[241] GAZETTE | CNZ (AUCKLAND) LIMITED (in liquidation)
+     Title: CNZ (AUCKLAND) LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ds7239
+
+[242] GAZETTE | DACK HOLDINGS LIMITED and DACK PROJECT MANAGEMENT LIMITED (both in liquidation)
+     Title: DACK HOLDINGS LIMITED and DACK PROJECT MANAGEMENT LIMITED (both in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7240
+
+[243] GAZETTE | COOPER & CO REAL ESTATE ALBANY LIMITED (in liquidation)
+     Title: COOPER & CO REAL ESTATE ALBANY LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7254
+
+[244] GAZETTE | Land Declared Road, Land Acquired and Declared Road, Land Acquired, Land Set Apart for the Functioning Indirectly of a Road (Segregation) and Land Set Apart for the Use in Connection With a Road—27 and 29 Williams Avenue and 30, 36, 38, 40, 42, 44 and 48 Pakuranga Road, Pakuranga , Auckland
+     Title: Land Declared Road, Land Acquired and Declared Road, Land Acquired, Land Set Apart for the Functioning Indirectly of a Road (Segregation) and Land Set Apart for the Use in Connection With a Road—27 and 29 Williams Avenue and 30, 36, 38, 40, 42, 44 and 48 Pakuranga Road, Pakuranga , Auckland
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-ln7238
+
+[245] GAZETTE | NOOK HOMES LIMITED (in liquidation)
+     Title: NOOK HOMES LIMITED (in liquidation)
+     First sentence: [No content]
+     Date: 2025-12-18
+     URL: https://gazette.govt.nz/notice/id/2025-al7221
+
+✅ GAZETTE scraping complete: 100 items collected
+
+🔍 Scraping BEEHIVE...
+🌐 Making request to: https://www.beehive.govt.nz/releases (attempt 1)
+❌ Bot protection detected: Attempt 1
+🌐 Making request to: https://www.beehive.govt.nz/releases (attempt 2)
+❌ Bot protection detected: Attempt 2
+🌐 Making request to: https://www.beehive.govt.nz/releases (attempt 3)
+✅ Response: 200 | Content-Type: text/html | Size: 1170 bytes
+📄 HTML Sample: <html style="height:100%"><head><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"><meta name="format-detection" content="telephone=no"><meta name="viewport" content="initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3"></script><script src="/arquings-Vizard-thats-to-Enter-Glamise-To-those-" async></script><script type="text/javascript">if (sessionStorage) { sessionStorage...
+🔍 Selector attempts:
+  ❌ article -> 0 elements
+  ❌ .view-content .views-row -> 0 elements
+  ❌ .release-list .release-item -> 0 elements
+  ❌ .speech-list .speech-item -> 0 elements
+  ❌ .content-list .content-item -> 0 elements
+  ❌ .node-teaser -> 0 elements
+  ❌ .announcement -> 0 elements
+  ❌ .teaser -> 0 elements
+  ❌ .node -> 0 elements
+❌ Beehive fallback link search: Trying link fallback
+❌ Beehive announcement extraction: No announcement elements found
+🌐 Making request to: https://www.beehive.govt.nz/speeches (attempt 1)
+✅ Response: 200 | Content-Type: text/html | Size: 1166 bytes
+📄 HTML Sample: <html style="height:100%"><head><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"><meta name="format-detection" content="telephone=no"><meta name="viewport" content="initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3"></script><script src="/arquings-Vizard-thats-to-Enter-Glamise-To-those-" async></script><script type="text/javascript">if (sessionStorage) { sessionStorage...
+🔍 Selector attempts:
+  ❌ article -> 0 elements
+  ❌ .view-content .views-row -> 0 elements
+  ❌ .release-list .release-item -> 0 elements
+  ❌ .speech-list .speech-item -> 0 elements
+  ❌ .content-list .content-item -> 0 elements
+  ❌ .node-teaser -> 0 elements
+  ❌ .announcement -> 0 elements
+  ❌ .teaser -> 0 elements
+  ❌ .node -> 0 elements
+❌ Beehive fallback link search: Trying link fallback
+❌ Beehive announcement extraction: No announcement elements found
+
+✅ BEEHIVE scraping complete: 0 items collected
+
+
+==========================
+  DEBUG PIPELINE SUMMARY
+==========================
+
+📈 OVERALL STATISTICS:
+   Total scraped: 245
+   Total processed: 245
+   Items removed: 0
+
+📋 SOURCE BREAKDOWN:
+   ✓ PARLIAMENT: 0 items
+   ✓ LEGISLATION: 145 items
+   ✓ GAZETTE: 100 items
+   ✓ BEEHIVE: 0 items
