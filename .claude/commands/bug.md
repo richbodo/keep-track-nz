@@ -22,7 +22,6 @@ Create a new plan in specs/*.md to resolve the `Bug` using the exact specified m
 Focus on the following files:
 - `README.md` - Contains the project overview and instructions.
 - `docs/**` - Contains documentation of architecture, usage, dev instructions
-- `init.sh and uninit.sh` - Scripts that must be "sourced" to setup and teardown env
 
 Ignore all other files in the codebase.
 
